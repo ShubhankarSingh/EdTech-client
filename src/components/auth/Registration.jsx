@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { registerUser } from "../../services/authService";
 
 const Registration = () => {
 
@@ -9,15 +10,40 @@ const Registration = () => {
         password:""
     });
 
-    const handleInputChange = (e) => {
+    const [errorMessage, setErrorMessage] = useState("")
+	const [successMessage, setSuccessMessage] = useState("")
+
+    const handleInputChange = async (e) => {
         const {name, value} = e.target;
         SetRegistration({...registration, [name]: value})
     }
 
+    const handleRegistration = async (e) => {
+        e.preventDefault()
+        try{
+            console.log("Register user: " + registration);
+
+            const result = await registerUser(registration)
+            setSuccessMessage("Registartion successful")
+            setErrorMessage("")
+            SetRegistration(result)
+        }catch(error){
+            setSuccessMessage("");
+            setErrorMessage(`Registration error : ${error.message}`)
+        }
+        setTimeout(() =>{
+            setErrorMessage("")
+            setSuccessMessage("")
+        },7000)
+    }
 
     return (
         <>
         <div>
+
+            {errorMessage && <p className="alert alert-danger">{errorMessage}</p>}
+			{successMessage && <p className="alert alert-success">{successMessage}</p>}
+
 
             <h1>Registration Form</h1>
             <form onSubmit={handleRegistration}>

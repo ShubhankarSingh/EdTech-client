@@ -3,7 +3,7 @@ import { registerUser } from "../../services/authService";
 
 const Registration = () => {
 
-    const [registration, SetRegistration] = useState({
+    const [registration, setRegistration] = useState({
         firstName: "",
         lastName: "",
         email: "",
@@ -15,21 +15,21 @@ const Registration = () => {
 
     const handleInputChange = async (e) => {
         const {name, value} = e.target;
-        SetRegistration({...registration, [name]: value})
+        setRegistration({...registration, [name]: value})
     }
 
     const handleRegistration = async (e) => {
         e.preventDefault()
         try{
-            console.log("Register user: " + registration);
-
+        
             const result = await registerUser(registration)
             setSuccessMessage("Registartion successful")
             setErrorMessage("")
-            SetRegistration(result)
+            setRegistration({ firstName: "", lastName: "", email: "", password: "" })
         }catch(error){
+
             setSuccessMessage("");
-            setErrorMessage(`Registration error : ${error.message}`)
+            setErrorMessage(`${error.message}`)
         }
         setTimeout(() =>{
             setErrorMessage("")

@@ -7,7 +7,7 @@ const AddCourse = () => {
         author: "", title: "",
         description: "", shortDescription: "",
         language: "", createdDate: "",
-        category: {categoryId: "", categoryType: ""}
+        category: {id: "", categoryType: ""}
     })
 
 
@@ -33,13 +33,16 @@ const AddCourse = () => {
 
     const handleFormSubmit = async (e) => {
         e.preventDefault()
+
         try{
-            const response = await addCourse(course)
-            console.log("res: "+ response)
+            const response = await addCourse(course.author, course.title, course.description, course.shortDescription,
+                                            course.language, course.category, course.createdDate)
+            
+            
             setSuccessMessage("Course added successfully")
             setErrorMessage("")
             setCourse({author: "", title: "", description: "", shortDescription: "",
-            language: "", createdDate: "", category: {categoryId: "", categoryType: ""}})
+            language: "", createdDate: "", category: {id: "", categoryType: ""}})
 
         }catch(error){
             setSuccessMessage("")
@@ -121,7 +124,7 @@ const AddCourse = () => {
                         Date
                     </label>
                     <div className="col-sm-10">
-                        <input id="createdDate" name="createdDate" type="text" className="form-control" value={course.createdDate} onChange={handleInputChange}/>
+                        <input id="createdDate" name="createdDate" type="date" className="form-control" value={course.createdDate} onChange={handleInputChange}/>
                     </div>
                 </div>
 

@@ -14,24 +14,28 @@ export async function getAllCategories(){
     }
 }
 
-export async function addCourse(course){
+export async function addCourse(author, title, description, shortDescription, language, category, createdDate){
+    
+    const data = {
+        author: author,
+        title: title,
+        description: description,
+        shortDescription: shortDescription,
+        language: language,
+        createdDate: createdDate,
+        id: category.id
+    }
 
-    const formData = new FormData()
-    formData.append("title", course.title)
-    formData.append("author", course.author)
-    formData.append("description", course.description)
-    formData.append("shortDescription", course.shortDescription)
-    formData.append("language", course.language)
-    formData.append("createdDate", course.createdDate)
-    formData.append("category", course.category.categoryId)
-
-    console.log("Formdata: "+ formData)
     try{
         console.log("Inside add course")
-        const response = await api.post("/courses/add-course", formData)
-        return response.data
+        const response = await api.post("/courses/add-course", data, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        return response.status === 200
     }catch(error){
-        console.log("Error fetching categories")
+        console.log(`Error adding course ${error.message}`)
         return [];
     }
 }

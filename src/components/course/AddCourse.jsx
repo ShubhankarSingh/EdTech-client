@@ -7,13 +7,15 @@ const AddCourse = () => {
         author: "", title: "",
         description: "", shortDescription: "",
         language: "", createdDate: "",
-        category: {id: "", categoryType: ""}
+        category: {id: "", categoryType: ""},
+        thumbnail: null,
     })
 
 
     const [categories, setCategories] = useState([]);
     const [successMessage, setSuccessMessage] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
+    const [imagePreview, setImagePreview] = useState("");
 
     useEffect(()=>{
         getAllCategories().then((data)=>{
@@ -30,6 +32,22 @@ const AddCourse = () => {
         const selectedCategory = categories.find(category => category.categoryType == e.target.value)
         setCourse({...course, category: selectedCategory})
     }
+
+    const handleImageChange = (e) =>{
+        const selectedImage = e.target.files[0]
+        setCourse({...course, [thumbnail]: selectedImage})
+        setImagePreview(URL.createObjectURL(selectedImage))
+    }
+
+    const handleVideoChange = (e) =>{
+        const video = Array.from(e.target.files);
+        setVideos(video);
+    }
+
+    videos.forEach((video) =>{
+        console.log(video)
+        console.log(videos.length)
+    })
 
     const handleFormSubmit = async (e) => {
         e.preventDefault()
@@ -64,25 +82,25 @@ const AddCourse = () => {
             <form onSubmit={handleFormSubmit}>
 
                 <div className="mb-3 row">
-                    <label htmlFor="title" className="col-sm-2 col-form-label">
+                    <label htmlFor="title" className="col-sm-3 col-form-label">
                         Title
                     </label>
-                    <div className="col-sm-10">
+                    <div className="col-sm-6">
                         <input id="title" name="title" type="text" className="form-control" value={course.title} onChange={handleInputChange}/>
                     </div>
                 </div>
 
                 <div className="mb-3 row">
-                    <label htmlFor="author" className="col-sm-2 col-form-label">
+                    <label htmlFor="author" className="col-sm-3 col-form-label">
                         Author
                     </label>
-                    <div className="col-sm-10">
+                    <div className="col-sm-6">
                         <input id="author" name="author" type="text" className="form-control" value={course.author} onChange={handleInputChange}/>
                     </div>
                 </div>
 
                 <div className="mb-3 row">
-                    <label htmlFor="category" className="col-sm-2 col-form-label">
+                    <label htmlFor="category" className="col-sm-3 col-form-label">
                         Category
                     </label>
                     <select className="form-select" name="category" id="category" aria-label="Default select example" value={course.category.categoryType} onChange={handleCategoryChange} >
@@ -93,39 +111,59 @@ const AddCourse = () => {
                 </div>
 
                 <div className="mb-3 row">
-                    <label htmlFor="description" className="col-sm-2 col-form-label">
+                    <label htmlFor="description" className="col-sm-3 col-form-label">
                         Description
                     </label>
-                    <div className="col-sm-10">
+                    <div className="col-sm-6">
                         <input id="description" name="description" type="text" className="form-control" value={course.description} onChange={handleInputChange}/>
                     </div>
                 </div>
 
                 <div className="mb-3 row">
-                    <label htmlFor="shortDescription" className="col-sm-2 col-form-label">
+                    <label htmlFor="shortDescription" className="col-sm-3 col-form-label">
                         Short Description
                     </label>
-                    <div className="col-sm-10">
+                    <div className="col-sm-6">
                         <input id="shortDescription" name="shortDescription" type="text" className="form-control" value={course.shortDescription} onChange={handleInputChange}/>
                     </div>
                 </div>
 
                 <div className="mb-3 row">
-                    <label htmlFor="language" className="col-sm-2 col-form-label">
+                    <label htmlFor="language" className="col-sm-3 col-form-label">
                         Language
                     </label>
-                    <div className="col-sm-10">
+                    <div className="col-sm-6">
                         <input id="language" name="language" type="text" className="form-control" value={course.language} onChange={handleInputChange}/>
                     </div>
                 </div>
 
                 <div className="mb-3 row">
-                    <label htmlFor="createdDate" className="col-sm-2 col-form-label">
+                    <label htmlFor="createdDate" className="col-sm-3 col-form-label">
                         Date
                     </label>
-                    <div className="col-sm-10">
+                    <div className="col-sm-6">
                         <input id="createdDate" name="createdDate" type="date" className="form-control" value={course.createdDate} onChange={handleInputChange}/>
                     </div>
+                </div>
+
+                <div className="mb-3 row">
+                    <label htmlFor="thumbnail" className="col-sm-3 col-form-label">
+                        Thumbnail
+                    </label>
+                    <div className="col-sm-6">
+                        <input id="thumbnail" name="thumbnail" type="file" className="form-control" value={course.thumbnail} onChange={handleImageChange}/>
+                    </div>
+                    {imagePreview && <img src={imagePreview} alt="Thumbnail" style={{ maxWidth: "400px", maxHeight: "400px" }}></img>}
+                </div>
+
+                <div className="mb-3 row">
+                    <label htmlFor="videos" className="col-sm-3 col-form-label">
+                        Videos
+                    </label>
+                    <div className="col-sm-6">
+                        <input id="videos" name="videos" type="file" className="form-control" onChange={handleVideoChange}/>
+                    </div>
+                    {imagePreview && <img src={imagePreview} alt="Thumbnail" style={{ maxWidth: "400px", maxHeight: "400px" }}></img>}
                 </div>
 
                 <div>

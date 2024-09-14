@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { addCourse, getAllCategories } from "../../services/courseService";
+import {useNavigate} from 'react-router-dom'
 
 const AddCourse = () => {
 
@@ -11,6 +12,7 @@ const AddCourse = () => {
         thumbnail: null,
     })
 
+    const navigate = useNavigate()
 
     const [categories, setCategories] = useState([]);
     const [successMessage, setSuccessMessage] = useState("");
@@ -39,15 +41,6 @@ const AddCourse = () => {
         setImagePreview(URL.createObjectURL(selectedImage))
     }
 
-    const handleVideoChange = (e) =>{
-        const video = Array.from(e.target.files);
-        setVideos(video);
-    }
-
-    videos.forEach((video) =>{
-        console.log(video)
-        console.log(videos.length)
-    })
 
     const handleFormSubmit = async (e) => {
         e.preventDefault()
@@ -57,6 +50,11 @@ const AddCourse = () => {
                                             course.language, course.category, course.createdDate)
             
             
+            if(response.status === 200){
+                const savedCourse = response.data
+                navigate(`/${savedCourse.id}/add-lecture`)
+            }
+
             setSuccessMessage("Course added successfully")
             setErrorMessage("")
             setCourse({author: "", title: "", description: "", shortDescription: "",
@@ -156,18 +154,9 @@ const AddCourse = () => {
                     {imagePreview && <img src={imagePreview} alt="Thumbnail" style={{ maxWidth: "400px", maxHeight: "400px" }}></img>}
                 </div>
 
-                <div className="mb-3 row">
-                    <label htmlFor="videos" className="col-sm-3 col-form-label">
-                        Videos
-                    </label>
-                    <div className="col-sm-6">
-                        <input id="videos" name="videos" type="file" className="form-control" onChange={handleVideoChange}/>
-                    </div>
-                    {imagePreview && <img src={imagePreview} alt="Thumbnail" style={{ maxWidth: "400px", maxHeight: "400px" }}></img>}
-                </div>
 
                 <div>
-                    <button type="sumbit">Add Course</button>
+                    <button type="submit">Add Course</button>
                 </div>
             </form>
 

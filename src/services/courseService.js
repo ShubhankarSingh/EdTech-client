@@ -33,9 +33,32 @@ export async function addCourse(author, title, description, shortDescription, la
                 'Content-Type': 'application/json'
             }
         })
-        return response.status === 200
+        console.log("Saved course data: " + response.data)
+        return response
     }catch(error){
         console.log(`Error adding course ${error.message}`)
         return [];
+    }
+}
+
+export async function addLecture(video, courseId){
+
+
+    const formData = new FormData()
+    formData.append('title', video.title)
+    formData.append('url', video.url)
+
+    try{
+        const response = await api.post(`/courses/${courseId}/add-lecture`, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        })
+        if (response.status === 200) {
+            alert("Video added successfully")
+        }
+        return response.status
+    }catch(error){
+        console.log(`Error adding lecture ${error.message}`)
     }
 }

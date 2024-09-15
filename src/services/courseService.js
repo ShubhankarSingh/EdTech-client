@@ -41,6 +41,42 @@ export async function addCourse(author, title, description, shortDescription, la
     }
 }
 
+// export async function getCourse(courseId) {
+    
+//     try{
+//         console.log("Inside Get a single course")
+//         const response = await api.get(`/courses/course/${courseId}`)
+
+//         return response
+//     }catch(error){
+//         console.log(`Error fetching course ${error.message}`)
+//     }
+// }
+
+export async function getCourse(title) {
+    
+    try{
+        console.log("Inside Get a single course")
+        const response = await api.get(`/courses/course/${title}`)
+
+        return response
+    }catch(error){
+        console.log(`Error fetching course ${error.message}`)
+    }
+
+}
+
+export async function getAllCoursesByCategory(category) {
+    try{
+        console.log("Inside Get all courses by category")
+        const response = await api.get(`/courses/${category}`)
+
+        return response
+    }catch(error){
+        console.log(`Error fetching course ${error.message}`)
+    }
+}
+
 export async function addLecture(video, courseId){
 
 
@@ -61,4 +97,18 @@ export async function addLecture(video, courseId){
     }catch(error){
         console.log(`Error adding lecture ${error.message}`)
     }
+}
+
+
+export async function getAllLectures(courseId) {
+
+    try{
+        console.log("Inside get all lectures")
+
+        const response = await api.get(`/courses/${courseId}/all-lectures`)
+        return response
+    }catch(error){
+        console.log(`Error fetching lectures: ${error.message}`)
+    }
+    
 }

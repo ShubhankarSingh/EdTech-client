@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { getAllCoursesByCategory } from "../../services/courseService"
 import { useParams } from "react-router-dom"
+import CourseDetail from "./CourseDetail"
 
 const Courses = () => {
 
@@ -28,13 +29,13 @@ const Courses = () => {
   console.log(courses)
 
   return (
-    <div>
 
-      {courses && courses.map((course)=>(
-          <p key={course.id}>Title: {course.title}</p>
+    <div className='row my-3'>        
+      {courses && courses.map((course, index)=>(          
+          <CourseDetail key={index} course={course}/>
       ))}
-
     </div>
+  
   )
 }
 

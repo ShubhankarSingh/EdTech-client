@@ -7,6 +7,8 @@ import Registration from "./components/auth/Registration"
 import AddCourse from "./components/course/AddCourse"
 import AddVideos from "./components/course/AddVideos"
 import Courses from "./components/course/Courses"
+import CourseDescription from "./components/course/CourseDescription"
+import StreamLecture from "./components/course/StreamLecture"
 
 function App() {
   const [count, setCount] = useState(0)
@@ -19,6 +21,8 @@ function App() {
           <Route path="/register" element={ <Registration/> }></Route>
           <Route path="/course/add-course" element={ <AddCourse/> }></Route>
           <Route path="/courses/:category" element={ <Courses/> }></Route>
+          <Route path="/course/:title" element={ <CourseDescription/> }></Route>
+          <Route path="/course/:title/:videoTitle" element={ <StreamLecture/> }></Route>
           <Route path="/course/add-course/:courseId/add-lecture" element={ <AddVideos/> }></Route>
         </Routes>
       </BrowserRouter>

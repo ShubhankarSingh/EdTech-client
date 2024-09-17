@@ -14,32 +14,66 @@ export async function getAllCategories(){
     }
 }
 
-export async function addCourse(author, title, description, shortDescription, language, category, createdDate){
+// export async function addCourse(author, title, description, shortDescription, language, category, createdDate, thumbnail){
     
-    const data = {
-        author: author,
-        title: title,
-        description: description,
-        shortDescription: shortDescription,
-        language: language,
-        createdDate: createdDate,
-        id: category.id
-    }
+//     const data = {
+//         author: author,
+//         title: title,
+//         description: description,
+//         shortDescription: shortDescription,
+//         language: language,
+//         createdDate: createdDate,
+//         id: category.id
+//     }
 
-    try{
-        console.log("Inside add course")
-        const response = await api.post("/courses/add-course", data, {
+//     const formData = new FormData()
+//     formData.append('thumbnail', thumbnail)
+
+//     try{
+//         console.log("Inside add course")
+//         const response = await api.post("/courses/add-course", data, {
+//             headers: {
+//                 'Content-Type': 'application/json'
+//             }
+//         })
+//         console.log("Saved course data: " + response.data)
+//         return response
+//     }catch(error){
+//         console.log(`Error adding course ${error.message}`)
+//         return [];
+//     }
+// }
+
+
+export async function addCourse(author, title, description, shortDescription, language, category, createdDate, thumbnail) {
+    const formData = new FormData();
+    
+    formData.append('author', author);
+    formData.append('title', title);
+    formData.append('description', description);
+    formData.append('shortDescription', shortDescription);
+    formData.append('language', language);
+    formData.append('createdDate', createdDate);
+    formData.append('id', category.id); 
+    
+    // Append the thumbnail file
+    formData.append('thumbnail', thumbnail);
+
+    try {
+        console.log("Inside add course");
+        const response = await api.post("/courses/add-course", formData, {
             headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-        console.log("Saved course data: " + response.data)
-        return response
-    }catch(error){
-        console.log(`Error adding course ${error.message}`)
+                'Content-Type': 'multipart/form-data',
+            },
+        });
+        console.log("Saved course data: " + response.data);
+        return response;
+    } catch (error) {
+        console.log(`Error adding course ${error.message}`);
         return [];
     }
 }
+
 
 // export async function getCourse(courseId) {
     

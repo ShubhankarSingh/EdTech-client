@@ -1,29 +1,53 @@
 import React from 'react'
 import { useNavigate } from "react-router-dom"
 
+import "./styles/CourseDetail.css"
+
 const CourseDetail = ({course}) => {
 
+    
     const navigate = useNavigate()
 
-    const handleView = () =>{
-        navigate(`/course/${course.title}/`, {state: {course : course}})
-    }
+    // Replace %20 (space) with '-' (dash), also replaces multiple dashes with single dash
+    const formmatedTitle = course.title.replace(/\s/g, '-').replace(/-+/g, '-').toLowerCase()
 
+    const handleView = () =>{
+        navigate(`/course/${formmatedTitle}/`, {state: {course : course}})
+    }
 
     return (
         
-        <div className="col-md-3">
-            <a className="card product-card my-3" onClick={handleView}>
-                {/* <img src={imageSrc} alt={name} /> */}
-                <div className="card-body">
-                    <h5 className="card-title">{course.title}</h5>
-                    <p className="card-text">{course.shortDescription}</p>
-                    <p className="card-text">₹{course.author}</p>
-                </div>
-            </a>
+        <div className="dark">
+            <main className="container py-4">
+                
+                <article className="postcard dark blue" style={{ maxHeight: '300px' }}>
+                    <a className="postcard__img_link" href="#">
+                        <img className="postcard__img" alt="Image Title" src={`data:image/png;base64, ${course.thumbnail}`} />  
+                    </a>
+                    <div className="postcard__text">
+                        <h1 className="postcard__title red">
+                            <a href="#">{course.title}</a>
+                        </h1>
+                        <div className="postcard__subtitle small">                  
+                            <p className="fas fa-calendar-alt mr-2"> {course.shortDescription} </p>           
+                        </div>
+                        <div className="postcard__bar"></div>
+                        <div className="postcard__preview-txt">
+                            <p>{course.author}</p> 
+                        </div>
+                        <ul className="postcard__tagbox">
+                            <button type="button" className="btn btn-outline-warning" onClick={handleView}>
+                                DETAILS
+                            </button>
+                        </ul>
+                    </div>
+                </article>    
+            </main>
         </div>
-        
+
     )
+
+    
 }
 
 export default CourseDetail

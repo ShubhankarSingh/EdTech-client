@@ -37,7 +37,7 @@ const AddCourse = () => {
 
     const handleImageChange = (e) =>{
         const selectedImage = e.target.files[0]
-        setCourse({...course, [thumbnail]: selectedImage})
+        setCourse({...course, thumbnail: selectedImage})
         setImagePreview(URL.createObjectURL(selectedImage))
     }
 
@@ -47,7 +47,7 @@ const AddCourse = () => {
 
         try{
             const response = await addCourse(course.author, course.title, course.description, course.shortDescription,
-                                            course.language, course.category, course.createdDate)
+                                            course.language, course.category, course.createdDate, course.thumbnail)
             
             
             if(response.status === 200){
@@ -149,7 +149,7 @@ const AddCourse = () => {
                         Thumbnail
                     </label>
                     <div className="col-sm-6">
-                        <input id="thumbnail" name="thumbnail" type="file" className="form-control" value={course.thumbnail} onChange={handleImageChange}/>
+                        <input id="thumbnail" name="thumbnail" type="file" className="form-control" onChange={handleImageChange}/>
                     </div>
                     {imagePreview && <img src={imagePreview} alt="Thumbnail" style={{ maxWidth: "400px", maxHeight: "400px" }}></img>}
                 </div>

@@ -1,6 +1,7 @@
 import React from 'react'
 import { useLocation, useNavigate } from "react-router-dom"
 import StreamLecture from "./StreamLecture"
+import "./styles/CourseDescription.css"
 
 const CourseDescription = () => {
 
@@ -9,39 +10,120 @@ const CourseDescription = () => {
     const {course} = location.state || {}
     const navigate = useNavigate()
     
+    // Replace %20 (space) with '-' (dash), also replaces multiple dashes with single dash
+    const formmatedTitle = course.title.replace(/\s/g, '-').replace(/-+/g, '-').toLowerCase()
 
-    const handleVideoView = (video, videoTitle) => {
-        navigate(`/course/${course.title}/${videoTitle}`, {state: {video: video}})
+    const handleVideoView = (video, videoId, videoTitle) => {
+        navigate(`/course/${formmatedTitle}/lesson/${videoId}`, {state: {video: video}})
     }
-    
+
+    // Get the first video from list 
+    const previewVideoId = course.videos[0].id
+  
     return (
-        <div>
-        {course && (
-        <div className="my-5">
-        <div className="row">
-            {/* <div className="col-6">
-                <img src={imageSrc} alt={productDetails.name} style={{ width: "100%", height: "500px"}} />
-            </div> */}
-            <div className="col-5"> 
-                <p style={{ fontSize: '28px', fontWeight: 'normal', textAlign: 'left' }}>{course.title}</p>
-                <hr></hr>
-                <div style={{ display: 'flex', alignItems: 'center' }}>
-                    <p style={{ marginRight: '10px', fontSize: '15px' }}>{course.author}</p>
-                    <p style={{ fontSize: '22px', textAlign: 'left', fontWeight: 'bold' }}>{course.description}</p>
-                    <p style={{ fontSize: '22px', textAlign: 'left', fontWeight: 'bold' }}>{course.language}</p>
+    
+    <div className="light">   
+    <div className="blog-single">
+        <div className="container">
+            <div className="row align-items-start">
+                <div className="col-lg-7 m-15px-tb">
+                    <article className="article">                        
+                        <div className="article-title">
+                        
+                            <h2>{ course.title }</h2>
+                            <div className="media">
+                                <div className="avatar">
+                                  <img src="/" title="" alt="profile pic" />
+                                </div>
+                                <div className="media-body">
+                                    <label>{course.author}</label>
+                                </div>
+                            </div>
+                        </div>
+                       
+                        <div className="media-body">
+                           
+                        </div>
+                        <div className="article-content">
+                            <h4>What is this course about?</h4>
+                            <p>{course.description}</p>
+                            <blockquote>
+                                <p>What you will learn?</p>
+                                <p className="blockquote-footer">Course Outcomes </p>
+                            </blockquote>
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt cupiditate ipsa doloribus dicta voluptates, beatae reiciendis quas, illum optio tenetur rem 
+                              aperiam hic voluptatibus tempora sint nulla repudiandae velit placeat provident voluptatem! Dolorum ratione sint tempore deserunt facilis vel 
+                              facere sapiente! Porro blanditiis nemo sapiente, at iure neque officiis veritatis tempore aliquid illum provident animi debitis optio exercitationem a aliquam magni dignissimos tenetur sunt ex. Natus voluptate.</p>
+                        </div>
+                    </article>
+                   
+                </div>
+                <div className="col-lg-4 m-15px-tb blog-aside">
+                    
+                    <div className="widget widget-post">
+                        <div className="widget-title">
+                            <h3>INTRODUCTION TO COURSE</h3>
+                        </div>
+                        <div className="widget-body">         
+                          
+                            <h5 style={{color: 'black'}}>Course Preview</h5>                            
+                            <video width="300" height="200" controls >
+                                <source src={`http://localhost:8080/courses/play/${previewVideoId}`} type="video/mp4" />
+                            </video>
+                          
+                        </div>
+                    </div>
+                    
+                    <div className="widget widget-author">
+                        <div className="widget-title">
+                            <h3>About Instructor</h3>
+                        </div>
+                        <div className="widget-body">
+                            <div className="media align-items-center">
+                                <div className="avatar">
+                                    <img src="/" title="" alt="" />
+                                </div>
+                                <div className="media-body">
+                                    <h6>Hello, I'm {course.author}</h6>
+                                </div>
+                            </div>
+                            <p>I am a professional software developer for over 14 years. I have trained over 50,000 students how to program, way more than a typical IT Professor at a college does in a lifetime.</p>
+                        </div>
+                    </div>
+                                    
+                </div>
+                <div className="table-responsive custom-table-responsive" style={{marginLeft: "20px", marginRight: "100px", border: "1px solid rgb(218, 204, 204)"}}>
+
+                  <table className="table custom-table">
+                    <thead>
+                      <tr>                                                   
+                        <th scope="col">S.No.</th>
+                        <th scope="col">Lesson Name</th>                       
+                        <th scope="col">Video</th>
+                        <th scope="col">Duration</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        
+                   {course.videos && course.videos.map((video) => (
+                        
+                    <>
+                        <tr scope="row">                                        
+                            <td>{video.id}</td>
+                            <td>{video.title}</td>
+                            <td><a onClick={() => handleVideoView(video, video.id, video.title)}>Watch Lecture</a></td>
+                            <td>45 mins</td>  
+                        </tr>
+                        <tr className="spacer"><td colSpan="200"></td></tr>  
+                    </>
+                    )
+                    )}                                    
+                    </tbody>
+                  </table>
                 </div>
             </div>
-            {course.videos && course.videos.map((video) => (
-                
-                <div>
-                    <h3>{video.title}</h3>
-                    <a onClick={() => handleVideoView(video, video.title)}>Watch Lecture</a>
-                </div>
-            )
-            )}
-        </div>
-        </div>
-        )}
+        </div>   
+    </div>
     </div>
     )
 }

@@ -30,7 +30,8 @@ const Courses = () => {
 
   return (
 
-    <div className='row my-3'>        
+    <div className='row my-3'>
+      <div className="h1 text-center" id="pageHeaderTitle" style={{color: 'white'}}> {category}</div>        
       {courses && courses.map((course, index)=>(          
           <CourseDetail key={index} course={course}/>
       ))}

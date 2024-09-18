@@ -14,3 +14,13 @@ export async function registerUser(registration) {
         throw new Error(`User registration error: ${error.message}`);
     }
 }
+
+/* This function register a new user */
+export async function loginUser(login) {
+    try{
+        const response = await api.post("/register", registration)
+        return response.data
+    }catch(error){
+        throw new Error(`User registration error: ${error.message}`);
+    }
+}

@@ -46,7 +46,7 @@ const NavBar = (props) => {
                             </li>}
                             {!localStorage.getItem('token') &&
                             <li className="navitem">
-                                <Link className="nav-link text-light" to="/signup" role="button">Signup</Link>
+                                <Link className="nav-link text-light" to="/register" role="button">Signup</Link>
                             </li>
                             }
                         </ul>

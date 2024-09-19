@@ -10,15 +10,15 @@ const Logout = () => {
 
     const handleLogout = () =>{
         auth.logout()
-        navigate("/")
+        navigate("/courses/music")
     }
 
     return (
-        <div>
-
-            
-
-        </div>
+        <>
+            <li className="nav-item">
+                <button className="nav-link text-light" onClick={handleLogout}>Logout</button>
+            </li>
+        </>
     )
 }
 

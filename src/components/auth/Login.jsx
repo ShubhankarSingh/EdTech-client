@@ -12,7 +12,6 @@ const Login = () => {
     })
 
     const [errorMessage, setErrorMessage] = useState("")
-	const [successMessage, setSuccessMessage] = useState("")
 
     const auth = useAuth()
     const navigate = useNavigate()
@@ -24,16 +23,19 @@ const Login = () => {
     const handleFormSubmit = async (e) =>{
         e.preventDefault()
         const loginSuccess = await loginUser(login)
-        if(loginSuccess){
+        
+        console.log(loginSuccess)
+
+        if(loginSuccess.status === 200){
             const token = loginSuccess.token
             auth.login(token)
-            navigate("/")
+            navigate("/course/add-course")
         }else{
             setErrorMessage("Invalid username or password. Please try again.")
         }
         setTimeout(()=>{
             setErrorMessage("")
-        }, 3000)
+        }, 5000)
     }
 
     return (
@@ -75,6 +77,7 @@ const Login = () => {
                                     Submit
                                 </button>
                             </form>
+                            <p className="card-text" style={{color: 'red'}}>{errorMessage}</p>
                         </div>
                     </div>
                 </div>

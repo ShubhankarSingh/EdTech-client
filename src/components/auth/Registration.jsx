@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { registerUser } from "../../services/authService";
 import authFormImage from "./authFormImage.jpg"
+import { useNavigate } from "react-router-dom";
 
 const Registration = () => {
 
@@ -14,6 +15,8 @@ const Registration = () => {
     const [errorMessage, setErrorMessage] = useState("")
 	const [successMessage, setSuccessMessage] = useState("")
 
+    const navigate = useNavigate()
+
     const handleInputChange = async (e) => {
         const {name, value} = e.target;
         setRegistration({...registration, [name]: value})
@@ -22,14 +25,17 @@ const Registration = () => {
     const handleRegistration = async (e) => {
         e.preventDefault()
         try{
-        
             const result = await registerUser(registration)
-            setSuccessMessage("Registartion successful")
-            setErrorMessage("")
-            setRegistration({ firstName: "", lastName: "", email: "", password: "" })
+            if(result.status === 200){
+                alert("Account created successfully!")
+                setSuccessMessage("Registartion successful")
+                setErrorMessage("")
+                setRegistration({ firstName: "", lastName: "", email: "", password: "" })
+                navigate("/login")
+            }
         }catch(error){
-
             setSuccessMessage("");
+            alert("Account creation failed!")
             setErrorMessage(`${error.message}`)
         }
         setTimeout(() =>{

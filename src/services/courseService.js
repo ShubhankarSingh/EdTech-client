@@ -14,36 +14,6 @@ export async function getAllCategories(){
     }
 }
 
-// export async function addCourse(author, title, description, shortDescription, language, category, createdDate, thumbnail){
-    
-//     const data = {
-//         author: author,
-//         title: title,
-//         description: description,
-//         shortDescription: shortDescription,
-//         language: language,
-//         createdDate: createdDate,
-//         id: category.id
-//     }
-
-//     const formData = new FormData()
-//     formData.append('thumbnail', thumbnail)
-
-//     try{
-//         console.log("Inside add course")
-//         const response = await api.post("/courses/add-course", data, {
-//             headers: {
-//                 'Content-Type': 'application/json'
-//             }
-//         })
-//         console.log("Saved course data: " + response.data)
-//         return response
-//     }catch(error){
-//         console.log(`Error adding course ${error.message}`)
-//         return [];
-//     }
-// }
-
 
 export async function addCourse(author, title, description, shortDescription, language, category, createdDate, thumbnail) {
     const formData = new FormData();
@@ -60,7 +30,7 @@ export async function addCourse(author, title, description, shortDescription, la
     formData.append('thumbnail', thumbnail);
 
     try {
-        console.log("Inside add course");
+        
         const response = await api.post("/courses/add-course", formData, {
             headers: {
                 'Content-Type': 'multipart/form-data',
@@ -90,7 +60,7 @@ export async function addCourse(author, title, description, shortDescription, la
 export async function getCourse(title) {
     
     try{
-        console.log("Inside Get a single course")
+      
         const response = await api.get(`/courses/course/${title}`)
 
         return response
@@ -102,7 +72,7 @@ export async function getCourse(title) {
 
 export async function getAllCoursesByCategory(category) {
     try{
-        console.log("Inside Get all courses by category")
+       
         const response = await api.get(`/courses/${category}`)
 
         return response

@@ -25,9 +25,6 @@ const Courses = () => {
 
   },[category])
 
-
-  console.log(courses)
-
   return (
 
     <div className='row my-3'>

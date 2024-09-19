@@ -1,7 +1,22 @@
-import React from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Link } from "react-router-dom"
 
+import './styles/Navbar.css'
+import { getAllCategories } from "../../services/courseService"
+import Logout from "../auth/Logout"
+import { useAuth } from "../auth/AuthProvider"
+
 const NavBar = (props) => {
+
+    const [categories, setCategories] = useState([])
+    
+    useEffect(()=>{
+        getAllCategories().then((data)=>{
+            setCategories(data);
+        })
+    },[])
+
+    const {isAuthenticated} = useAuth()
 
     return (
         <div id="app-navbar">
@@ -15,14 +30,13 @@ const NavBar = (props) => {
                         <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                             <li className="nav-item"><Link className="nav-link text-light" aria-current="page" to="/">Home</Link></li>
                             <li className="nav-item dropdown">
-                                <Link className="nav-link dropdown-toggle text-light" to="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <a className="nav-link dropdown-toggle text-light" to="#" id="navbarDropdown"  role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     Categories
-                                </Link>
-                                <ul className="dropdown-menu">
-                                    <Link className="dropdown-item text-dark" to="/">Mobile</Link>
-                                    <Link className="dropdown-item text-dark" to="/">Laptop</Link>
-                                    <Link className="dropdown-item text-dark" to="/">Appliances</Link>
-                                    <Link className="dropdown-item text-dark" to="/">Furniture</Link>
+                                </a>
+                                <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    {categories.map((category)=>(
+                                        <li key={category.id}><Link className="dropdown-item text-dark" to={`courses/${category.categoryType}`}>{category.categoryType}</Link></li>
+                                    ))}
                                 </ul>
                             </li>
                         </ul>
@@ -32,23 +46,32 @@ const NavBar = (props) => {
                             <button className="btn btn-outline-dark text-light search-button" type="submit" >Search</button>
                         </form> */}
                         
-                        <ul>
+                        {/* <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                             <li className="nav-item">
                                 <Link className="nav-link text-light" style={{fontSize: '15px'}} to="/course/add-course" role="button">Add Course</Link>
                             </li>
-                        </ul>
+                        </ul> */}
 
                         <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                            
-                            {!localStorage.getItem('token') &&  
+
                             <li className="nav-item">
-                                <Link className="nav-link text-light" to="/login" role="button">Login</Link>
-                            </li>}
-                            {!localStorage.getItem('token') &&
-                            <li className="navitem">
-                                <Link className="nav-link text-light" to="/register" role="button">Signup</Link>
+                                <Link className="nav-link text-light" style={{fontSize: '15px'}} to="/course/add-course" role="button">Add Course</Link>
                             </li>
-                            }
+                            
+                            {isAuthenticated ? (
+                                <Logout/>
+                            ): (
+                                <>
+                                    <li className="nav-item">
+                                        <Link className="nav-link text-light" to="/login" role="button">Login</Link>
+                                    </li>
+
+                                    <li className="navitem">
+                                        <Link className="nav-link text-light" to="/register" role="button">Signup</Link>
+                                    </li>
+                                </>
+                            )}
+
                         </ul>
                     </div>
                 </div>

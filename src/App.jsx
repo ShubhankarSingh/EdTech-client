@@ -2,7 +2,9 @@ import { useState } from 'react'
 import {Routes, Route, BrowserRouter} from 'react-router-dom'
 import './App.css'
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css"
-import "/node_modules/bootstrap/dist/js/bootstrap.min.js"
+import '/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js'
+//import "/node_modules/bootstrap/dist/js/bootstrap.min.js"
+import '@popperjs/core'
 import Registration from "./components/auth/Registration"
 import Login from "./components/auth/Login"
 import AddCourse from "./components/course/AddCourse"
@@ -14,7 +16,7 @@ import NavBar from "./components/layout/NavBar"
 import { AuthProvider } from "./components/auth/AuthProvider"
 
 function App() {
-  const [count, setCount] = useState(0)
+  
 
   return (
     <main>

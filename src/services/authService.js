@@ -9,7 +9,7 @@ export const api = axios.create({
 export async function registerUser(registration) {
     try{
         const response = await api.post("/register", registration)
-        return response.data
+        return response
     }catch(error){
         throw new Error(`User registration error: ${error.message}`);
     }
@@ -18,9 +18,11 @@ export async function registerUser(registration) {
 /* This function register a new user */
 export async function loginUser(login) {
     try{
-        const response = await api.post("/register", registration)
-        return response.data
+        const response = await api.post("/login", login)
+        console.log(response)
+        return response
     }catch(error){
-        throw new Error(`User registration error: ${error.message}`);
+        console.log(error.message)
+        return error
     }
 }

@@ -12,7 +12,6 @@ const Courses = () => {
   const fetchCourses = async (category) =>{
     try{
       const response = await getAllCoursesByCategory(category)
-
       setCourses(response.data)
     }catch(error){
       console.log("Error fetching courses")

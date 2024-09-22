@@ -23,12 +23,11 @@ const Login = () => {
     const handleFormSubmit = async (e) =>{
         e.preventDefault()
         const loginSuccess = await loginUser(login)
-        
         console.log(loginSuccess)
-
         if(loginSuccess.status === 200){
-            const token = loginSuccess.token
-            auth.login(token)
+            const {id, email, token} = loginSuccess.data
+            // const email = loginSuccess.data.email
+            auth.login(id, email, token)
             navigate("/course/add-course")
         }else{
             setErrorMessage("Invalid username or password. Please try again.")

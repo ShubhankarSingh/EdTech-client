@@ -14,6 +14,7 @@ import CourseDescription from "./components/course/CourseDescription"
 import StreamLecture from "./components/course/StreamLecture"
 import NavBar from "./components/layout/NavBar"
 import { AuthProvider } from "./components/auth/AuthProvider"
+import Profile from "./components/auth/Profile"
 
 function App() {
   
@@ -27,6 +28,7 @@ function App() {
         <Routes>
           <Route path="/register" element={ <Registration/> }></Route>
           <Route path="/login" element={ <Login/> }></Route>
+          <Route path="/user/profile" element={ <Profile/> }></Route>
           <Route path="/course/add-course" element={ <AddCourse/> }></Route>
           <Route path="/courses/:category" element={ <Courses/> }></Route>
           <Route path="/course/:title" element={ <CourseDescription/> }></Route>

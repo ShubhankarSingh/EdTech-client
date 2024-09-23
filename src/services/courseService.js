@@ -18,7 +18,7 @@ export async function getAllCategories(){
 export async function addCourse(author, title, description, shortDescription, language, category, createdDate, thumbnail) {
     const formData = new FormData();
     
-    formData.append('author', author);
+    formData.append('userId', author);
     formData.append('title', title);
     formData.append('description', description);
     formData.append('shortDescription', shortDescription);
@@ -29,6 +29,8 @@ export async function addCourse(author, title, description, shortDescription, la
     // Append the thumbnail file
     formData.append('thumbnail', thumbnail);
 
+    console.log("User id: " + author)
+
     try {
         
         const response = await api.post("/courses/add-course", formData, {
@@ -36,7 +38,6 @@ export async function addCourse(author, title, description, shortDescription, la
                 'Content-Type': 'multipart/form-data',
             },
         });
-        console.log("Saved course data: " + response.data);
         return response;
     } catch (error) {
         console.log(`Error adding course ${error.message}`);
@@ -60,9 +61,7 @@ export async function addCourse(author, title, description, shortDescription, la
 export async function getCourse(title) {
     
     try{
-      
         const response = await api.get(`/courses/course/${title}`)
-
         return response
     }catch(error){
         console.log(`Error fetching course ${error.message}`)

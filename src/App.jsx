@@ -13,12 +13,12 @@ import Courses from "./components/course/Courses"
 import CourseDescription from "./components/course/CourseDescription"
 import StreamLecture from "./components/course/StreamLecture"
 import NavBar from "./components/layout/NavBar"
-import { AuthProvider } from "./components/auth/AuthProvider"
+import { AuthProvider, useAuth } from "./components/auth/AuthProvider"
 import Profile from "./components/auth/Profile"
+
 
 function App() {
   
-
   return (
     <main>
 
@@ -33,7 +33,7 @@ function App() {
           <Route path="/courses/:category" element={ <Courses/> }></Route>
           <Route path="/course/:title" element={ <CourseDescription/> }></Route>
           <Route path="/course/:title/lesson/:videoId" element={ <StreamLecture/> }></Route>
-          <Route path="/:courseId/add-lecture" element={ <AddVideos/> }></Route>
+          <Route path="/course/:courseId/:title/add-lecture" element={ <AddVideos/> }></Route>
         </Routes>
       </BrowserRouter>
       </AuthProvider>

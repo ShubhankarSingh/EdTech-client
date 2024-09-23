@@ -4,8 +4,10 @@ import {useNavigate} from 'react-router-dom'
 
 const AddCourse = () => {
 
+    const user = localStorage.getItem('userId') 
+    
     const [course, setCourse] = useState({
-        author: "", title: "",
+        author: user, title: "",
         description: "", shortDescription: "",
         language: "", createdDate: "",
         category: {id: "", categoryType: ""},
@@ -13,6 +15,8 @@ const AddCourse = () => {
     })
 
     const navigate = useNavigate()
+    
+   
 
     const [categories, setCategories] = useState([]);
     const [successMessage, setSuccessMessage] = useState("");
@@ -52,7 +56,8 @@ const AddCourse = () => {
             
             if(response.status === 200){
                 const savedCourse = response.data
-                navigate(`/${savedCourse.id}/add-lecture`)
+                const formmatedTitle = savedCourse.title.replace(/\s/g, '-').replace(/-+/g, '-').toLowerCase()
+                navigate(`/course/${savedCourse.id}/${formmatedTitle}/add-lecture`)
             }
 
             setSuccessMessage("Course added successfully")
@@ -71,106 +76,69 @@ const AddCourse = () => {
     }
 
     return (
-        <div className="container my-5">
+    <div className="container my-5">
+    {errorMessage && <p className="alert alert-danger">{errorMessage}</p>}
+    {successMessage && <p className="alert alert-success">{successMessage}</p>}
 
-            {errorMessage && <p className="alert alert-danger">{errorMessage}</p>}
-            {successMessage && <p className="alert alert-success">{successMessage}</p>}
-
-
-            <div className="row justify-content-center">
-                <div className="col-md-6">
-                    <div className="card">
-                        <div className="card-body">
-                            <h1 className="mb-3">Add Course</h1>
-                            <form onSubmit={handleFormSubmit}>
-
-                                <div className="mb-3 row">
-                                    <label htmlFor="title" className="col-sm-3 col-form-label">
-                                        Title
-                                    </label>
-                                    <div className="col-sm-6">
-                                        <input id="title" name="title" type="text" className="form-control" value={course.title} onChange={handleInputChange}/>
-                                    </div>
-                                </div>
-
-                                <div className="mb-3 row">
-                                    <label htmlFor="author" className="col-sm-3 col-form-label">
-                                        Author
-                                    </label>
-                                    <div className="col-sm-6">
-                                        <input id="author" name="author" type="text" className="form-control" value={course.author} onChange={handleInputChange}/>
-                                    </div>
-                                </div>
-
-                                <div className="mb-3 row">
-                                    <label htmlFor="category" className="col-sm-3 col-form-label">
-                                        Category
-                                    </label>
-                                    <select className="form-select" name="category" id="category" aria-label="Default select example" value={course.category.categoryType} onChange={handleCategoryChange} >
-                                        {categories.map(category =>(
-                                            <option key={category.id} value={category.categoryType}>{category.categoryType}</option>
-                                        ))}
-                                    </select>
-                                </div>
-
-                                <div className="mb-3 row">
-                                    <label htmlFor="description" className="col-sm-3 col-form-label">
-                                        Description
-                                    </label>
-                                    <div className="col-sm-6">
-                                        <input id="description" name="description" type="text" className="form-control" value={course.description} onChange={handleInputChange}/>
-                                    </div>
-                                </div>
-
-                                <div className="mb-3 row">
-                                    <label htmlFor="shortDescription" className="col-sm-3 col-form-label">
-                                        Short Description
-                                    </label>
-                                    <div className="col-sm-6">
-                                        <input id="shortDescription" name="shortDescription" type="text" className="form-control" value={course.shortDescription} onChange={handleInputChange}/>
-                                    </div>
-                                </div>
-
-                                <div className="mb-3 row">
-                                    <label htmlFor="language" className="col-sm-3 col-form-label">
-                                        Language
-                                    </label>
-                                    <div className="col-sm-6">
-                                        <input id="language" name="language" type="text" className="form-control" value={course.language} onChange={handleInputChange}/>
-                                    </div>
-                                </div>
-
-                                <div className="mb-3 row">
-                                    <label htmlFor="createdDate" className="col-sm-3 col-form-label">
-                                        Date
-                                    </label>
-                                    <div className="col-sm-6">
-                                        <input id="createdDate" name="createdDate" type="date" className="form-control" value={course.createdDate} onChange={handleInputChange}/>
-                                    </div>
-                                </div>
-
-                                <div className="mb-3 row">
-                                    <label htmlFor="thumbnail" className="col-sm-3 col-form-label">
-                                        Thumbnail
-                                    </label>
-                                    <div className="col-sm-6">
-                                        <input id="thumbnail" name="thumbnail" type="file" className="form-control" onChange={handleImageChange}/>
-                                    </div>
-                                    {imagePreview && <img src={imagePreview} alt="Thumbnail" style={{ maxWidth: "400px", maxHeight: "400px" }}></img>}
-                                </div>
-
-                            
-                                <button type="submit" className="btn btn-primary auth-button w-50 my-3">
-                                    Add Course
-                                </button>
-                                
-                            </form>
-            
-                        </div>
+    <div className="row justify-content-center">
+        <div className="col-md-6">
+            <div className="">
+                <div className="p-3 mb-2  text-white text-center" style={{backgroundColor: "rgb(10, 7, 59)"}} >ADD A COURSE</div>
+                <form onSubmit={handleFormSubmit}>
+                    <div className="mb-3">
+                        <label htmlFor="title" className="form-label">Title</label>
+                        <input id="title" name="title" type="text" className="form-control" value={course.title} onChange={handleInputChange} />
                     </div>
-                </div>
+
+                    <div className="mb-3">
+                        <label htmlFor="author" className="form-label">Author</label>
+                        <input id="author" name="author" type="text" className="form-control" value={course.author} onChange={handleInputChange} />
+                    </div>
+
+                    <div className="mb-3">
+                        <label htmlFor="category" className="form-label">Category</label>
+                        <select className="form-select" name="category" id="category" value={course.category.categoryType} onChange={handleCategoryChange}>
+                            {categories.map((category) => (
+                                <option key={category.id} value={category.categoryType}>{category.categoryType}</option>
+                            ))}
+                        </select>
+                    </div>
+
+                    <div className="mb-3">
+                        <label htmlFor="description" className="form-label">Description</label>
+                        <textarea id="description" name="description" className="form-control" rows="3" value={course.description} onChange={handleInputChange}></textarea>
+                    </div>
+
+                    <div className="mb-3">
+                        <label htmlFor="shortDescription" className="form-label">Short Description</label>
+                        <input id="shortDescription" name="shortDescription" type="text" className="form-control" value={course.shortDescription} onChange={handleInputChange} />
+                    </div>
+
+                    <div className="mb-3">
+                        <label htmlFor="language" className="form-label">Language</label>
+                        <input id="language" name="language" type="text" className="form-control" value={course.language} onChange={handleInputChange} />
+                    </div>
+
+                    <div className="mb-3">
+                        <label htmlFor="createdDate" className="form-label">Date</label>
+                        <input id="createdDate" name="createdDate" type="date" className="form-control" value={course.createdDate} onChange={handleInputChange} />
+                    </div>
+
+                    <div className="mb-3">
+                        <label htmlFor="thumbnail" className="form-label">Thumbnail</label>
+                        <input id="thumbnail" name="thumbnail" type="file" className="form-control" onChange={handleImageChange} />
+                        {imagePreview && <img src={imagePreview} alt="Thumbnail" style={{ maxWidth: "100%", marginTop: "10px" }} />}
+                    </div>
+
+                    <div className="text-center">
+                        <button type="submit" className="btn btn-primary w-100 mt-3">Add Course</button>
+                    </div>
+                </form>
             </div>
         </div>
+    </div>
+</div>
+
     )
 }
 

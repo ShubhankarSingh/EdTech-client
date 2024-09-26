@@ -48,7 +48,7 @@ const NavBar = (props) => {
                         
                         <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
                             <li className="nav-item">
-                                <Link className="nav-link text-light fs-5 mx-4" to="/course/add-course" role="button">Teach on Edtech</Link>
+                                <Link className="nav-link text-light fs-5 mx-4" to="/course/add-course" role="button">Instructor</Link>
                             </li>
                             
                             {isAuthenticated ? (

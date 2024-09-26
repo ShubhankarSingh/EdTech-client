@@ -42,6 +42,11 @@ const Profile = () => {
 
 	}
 
+	// console.log(user.courses)
+	// user.courses.map((course)=>{
+	// 	console.log(course.title)
+	// })
+
     return (
 		<div className="container my-5">
 			<div className="main-body">
@@ -112,6 +117,23 @@ const Profile = () => {
 				) : (
 					<p>Loading user data...</p> // Optional: Display a loading message
 				)}
+
+				{user && user.courses && (user.courses.map(course =>(
+					<div className="row">
+						<div className="col-md-4 mb-3">
+							<div className="card">
+								<div className="card-body">
+									<a className="d-flex flex-column align-items-center text-center" onClick={handleClick}>
+										<img className="profile-pic" src={`data:image/png;base64, ${course.thumbnail}`} style={{ height: "200px", width: "350px" }} alt="profile" />
+										<div className="mt-3">
+											<h4>{course.title}</h4>
+										</div>
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				)))}
 			</div>
 		</div>
 	);	

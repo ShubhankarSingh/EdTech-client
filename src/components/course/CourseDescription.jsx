@@ -10,6 +10,9 @@ const CourseDescription = () => {
     const {course} = location.state || {}
     const navigate = useNavigate()
     
+
+    console.log("Course data: " + course)
+
     // Replace %20 (space) with '-' (dash), also replaces multiple dashes with single dash
     const formmatedTitle = course.title.replace(/\s/g, '-').replace(/-+/g, '-').toLowerCase()
 
@@ -18,7 +21,10 @@ const CourseDescription = () => {
     }
 
     // Get the first video from list 
-    const previewVideoId = course.videos[0].id
+    const previewVideoId = null
+    if(course.videos.length > 0){
+        previewVideoId = course.videos[0].id
+    }
   
     return (
     
@@ -36,7 +42,7 @@ const CourseDescription = () => {
                                   <img src="/" title="" alt="profile pic" />
                                 </div>
                                 <div className="media-body">
-                                    <label>{course.author}</label>
+                                    <label>{course.author.firstName}</label>
                                 </div>
                             </div>
                         </div>
@@ -68,7 +74,11 @@ const CourseDescription = () => {
                           
                             <h5 style={{color: 'black'}}>Course Preview</h5>                            
                             <video width="300" height="200" controls >
-                                <source src={`http://localhost:8080/courses/play/${previewVideoId}`} type="video/mp4" />
+                                {previewVideoId ? (
+                                    <source src={`http://localhost:8080/courses/play/${previewVideoId}`} type="video/mp4" />
+                                ): (
+                                    <source src="" />
+                                )}
                             </video>
                           
                         </div>
@@ -84,7 +94,7 @@ const CourseDescription = () => {
                                     <img src="/" title="" alt="" />
                                 </div>
                                 <div className="media-body">
-                                    <h6>Hello, I'm {course.author}</h6>
+                                    <h6>Hello, I'm {course.author.firstName}</h6>
                                 </div>
                             </div>
                             <p>I am a professional software developer for over 14 years. I have trained over 50,000 students how to program, way more than a typical IT Professor at a college does in a lifetime.</p>

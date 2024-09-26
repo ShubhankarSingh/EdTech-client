@@ -1,18 +1,30 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from "react-router-dom"
 
 import "./styles/CourseDetail.css"
+import { getCourseById } from "../../services/courseService"
 
 const CourseDetail = ({course}) => {
 
-    
+    const [fetchedCourse, setCourse] = useState()
     const navigate = useNavigate()
+
+    const getCourse = async (id) => {
+        const response = await getCourseById(id)
+        console.log(response)
+        setCourse(response.data)
+    }
+
+    console.log(course)
+
+    useEffect(()=>{
+        getCourse(course.courseId)
+    },[course.courseId])
 
     // Replace %20 (space) with '-' (dash), also replaces multiple dashes with single dash
     const formmatedTitle = course.title.replace(/\s/g, '-').replace(/-+/g, '-').toLowerCase()
-
     const handleView = () =>{
-        navigate(`/course/${formmatedTitle}/`, {state: {course : course}})
+        navigate(`/course/${formmatedTitle}/`, {state: {course : fetchedCourse}})
     }
 
     return (
@@ -33,7 +45,7 @@ const CourseDetail = ({course}) => {
                         </div>
                         <div className="postcard__bar"></div>
                         <div className="postcard__preview-txt">
-                            <p>{course.author}</p> 
+                            <p>{course.author.firstName + " " + course.author.lastName}</p> 
                         </div>
                         <ul className="postcard__tagbox">
                             <button type="button" className="btn btn-outline-warning" onClick={handleView}>

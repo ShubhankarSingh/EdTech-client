@@ -58,10 +58,10 @@ export async function addCourse(author, title, description, shortDescription, la
 //     }
 // }
 
-export async function getCourse(title) {
+export async function getCourseById(id) {
     
     try{
-        const response = await api.get(`/courses/course/${title}`)
+        const response = await api.get(`/courses/course/${id}`)
         return response
     }catch(error){
         console.log(`Error fetching course ${error.message}`)

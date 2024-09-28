@@ -6,25 +6,25 @@ import { getCourseById } from "../../services/courseService"
 
 const CourseDetail = ({course}) => {
 
-    const [fetchedCourse, setCourse] = useState()
+    //const [fetchedCourse, setCourse] = useState()
     const navigate = useNavigate()
 
-    const getCourse = async (id) => {
-        const response = await getCourseById(id)
-        console.log(response)
-        setCourse(response.data)
-    }
+    // const getCourse = async (id) => {
+    //     const response = await getCourseById(id)
+    //     console.log("Course data: " + response)
+    //     setCourse(response.data)
+    // }
 
-    console.log(course)
+    // console.log(course)
 
-    useEffect(()=>{
-        getCourse(course.courseId)
-    },[course.courseId])
+    // useEffect(()=>{
+    //     getCourse(course.courseId)
+    // },[course.courseId])
 
     // Replace %20 (space) with '-' (dash), also replaces multiple dashes with single dash
     const formmatedTitle = course.title.replace(/\s/g, '-').replace(/-+/g, '-').toLowerCase()
     const handleView = () =>{
-        navigate(`/course/${formmatedTitle}/`, {state: {course : fetchedCourse}})
+        navigate(`/course/${formmatedTitle}/`, {state: {courseId : course.courseId}})
     }
 
     return (

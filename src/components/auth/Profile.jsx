@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useAuth } from "./AuthProvider"
 import { getUserProfile, updateProfile } from "../../services/authService"
+import { useNavigate } from "react-router-dom"
 
 const Profile = () => {
 
@@ -10,9 +11,9 @@ const Profile = () => {
 	})
 	const [imagePreview, setImagePreview] = useState("")
     const userId = localStorage.getItem('userId')
+	const navigate = useNavigate()
 
     const fetchUserProfile = async (userId) =>{
-		
 		const response = await getUserProfile(userId)
 		setUser(response.data)
     }
@@ -42,15 +43,28 @@ const Profile = () => {
 
 	}
 
-	// console.log(user.courses)
-	// user.courses.map((course)=>{
-	// 	console.log(course.title)
-	// })
+	const handleClick = (title, id) => {
+		const formmatedTitle = title.replace(/\s/g, '-').replace(/-+/g, '-').toLowerCase()
+		navigate(`/course/${formmatedTitle}`, {state : {courseId: id}})
+	}
+
+	if (!user) {
+        return (
+            <div className="container d-flex justify-content-center align-items-start" style={{ minHeight: "100vh", paddingTop: "100px" }}>
+                <div className="text-center">
+                    <div className="spinner-border text-success" role="status" style={{ width: "3rem", height: "3rem" }}>
+                        
+                    </div>
+                    <p className="mt-3 text-center">Loading...</p>
+                </div>
+            </div>
+        );
+    }
 
     return (
 		<div className="container my-5">
 			<div className="main-body">
-				{user ? ( // Conditionally render only when user data is available
+				{user && ( // Conditionally render only when user data is available
 					<>
 						<div className="row gutters-sm">
 							<div className="col-md-4 mb-3">
@@ -114,16 +128,16 @@ const Profile = () => {
 							</div>
 						</div>
 					</>
-				) : (
-					<p>Loading user data...</p> // Optional: Display a loading message
 				)}
 
 				{user && user.courses && (user.courses.map(course =>(
 					<div className="row">
 						<div className="col-md-4 mb-3">
+							<br />
+							<h2>My Courses</h2>
 							<div className="card">
 								<div className="card-body">
-									<a className="d-flex flex-column align-items-center text-center" onClick={handleClick}>
+									<a className="d-flex flex-column align-items-center text-center" onClick={() => handleClick(course.title, course.courseId)}>
 										<img className="profile-pic" src={`data:image/png;base64, ${course.thumbnail}`} style={{ height: "200px", width: "350px" }} alt="profile" />
 										<div className="mt-3">
 											<h4>{course.title}</h4>

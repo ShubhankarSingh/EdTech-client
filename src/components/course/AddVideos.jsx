@@ -49,7 +49,7 @@ const AddVideos = () => {
         <div className="row justify-content-center">
             <div className="col-md-4">
                 <div className="">
-                    <div class="p-3 mb-2  text-white text-center" style={{backgroundColor: "rgb(10, 7, 59)"}} >ADD A LECTURE</div>
+                    <div className="p-3 mb-2  text-white text-center" style={{backgroundColor: "rgb(10, 7, 59)"}} >ADD A LECTURE</div>
         
                     <form onSubmit={handleFormSubmit}>
                         <div className="mb-3">

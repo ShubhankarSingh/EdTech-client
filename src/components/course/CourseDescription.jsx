@@ -1,18 +1,40 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from "react-router-dom"
 import StreamLecture from "./StreamLecture"
+import { getCourseById } from "../../services/courseService"
 import "./styles/CourseDescription.css"
 
 const CourseDescription = () => {
 
     const location = useLocation()
 
-    const {course} = location.state || {}
+    const {courseId} = location.state || {}
     const navigate = useNavigate()
     
+    const [course, setCourse] = useState()
 
-    console.log("Course data: " + course)
+    const getCourse = async (id) => {
+        const response = await getCourseById(id)
+        setCourse(response.data)
+    }
 
+    useEffect(()=>{
+        getCourse(courseId)
+    },[courseId])
+
+    if (!course) {
+        return (
+            <div className="container d-flex justify-content-center align-items-start" style={{ minHeight: "100vh", paddingTop: "100px" }}>
+                <div className="text-center">
+                    <div className="spinner-border text-success" role="status" style={{ width: "3rem", height: "3rem" }}>
+                        
+                    </div>
+                    <p className="mt-3 text-center">Loading...</p>
+                </div>
+            </div>
+        );
+    }
+    
     // Replace %20 (space) with '-' (dash), also replaces multiple dashes with single dash
     const formmatedTitle = course.title.replace(/\s/g, '-').replace(/-+/g, '-').toLowerCase()
 
@@ -21,16 +43,17 @@ const CourseDescription = () => {
     }
 
     // Get the first video from list 
-    const previewVideoId = null
+    var previewVideoId = null
     if(course.videos.length > 0){
         previewVideoId = course.videos[0].id
     }
-  
+    
     return (
     
     <div className="light">   
     <div className="blog-single">
         <div className="container">
+        {course && (
             <div className="row align-items-start">
                 <div className="col-lg-7 m-15px-tb">
                     <article className="article">                        
@@ -39,7 +62,7 @@ const CourseDescription = () => {
                             <h2>{ course.title }</h2>
                             <div className="media">
                                 <div className="avatar">
-                                  <img src="/" title="" alt="profile pic" />
+                                  <img src={`data:image/png;base64, ${course.author.profilePicture}`} title="" alt="profile pic" />
                                 </div>
                                 <div className="media-body">
                                     <label>{course.author.firstName}</label>
@@ -91,10 +114,10 @@ const CourseDescription = () => {
                         <div className="widget-body">
                             <div className="media align-items-center">
                                 <div className="avatar">
-                                    <img src="/" title="" alt="" />
+                                    <img src={`data:image/png;base64, ${course.author.profilePicture}`} title="Profile Picture" alt="profile" />
                                 </div>
                                 <div className="media-body">
-                                    <h6>Hello, I'm {course.author.firstName}</h6>
+                                    <h6>Hello, I'm {course.author.firstName} {course.author.lastName}</h6>
                                 </div>
                             </div>
                             <p>I am a professional software developer for over 14 years. I have trained over 50,000 students how to program, way more than a typical IT Professor at a college does in a lifetime.</p>
@@ -132,6 +155,7 @@ const CourseDescription = () => {
                   </table>
                 </div>
             </div>
+            ) }
         </div>   
     </div>
     </div>

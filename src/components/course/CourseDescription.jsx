@@ -47,6 +47,10 @@ const CourseDescription = () => {
     if(course.videos.length > 0){
         previewVideoId = course.videos[0].id
     }
+
+    const handleClick = () => {
+        navigate(`/course/${courseId}/${formmatedTitle}/add-lecture`)
+    }
     
     return (
     
@@ -117,7 +121,7 @@ const CourseDescription = () => {
                                     <img src={`data:image/png;base64, ${course.author.profilePicture}`} title="Profile Picture" alt="profile" />
                                 </div>
                                 <div className="media-body">
-                                    <h6>Hello, I'm {course.author.firstName} {course.author.lastName}</h6>
+                                    <a href=""><h6>Hello, I'm {course.author.firstName} {course.author.lastName}</h6></a>
                                 </div>
                             </div>
                             <p>I am a professional software developer for over 14 years. I have trained over 50,000 students how to program, way more than a typical IT Professor at a college does in a lifetime.</p>
@@ -141,19 +145,25 @@ const CourseDescription = () => {
                    {course.videos && course.videos.map((video) => (
                         
                     <>
-                        <tr scope="row">                                        
+                        <tr key={video.id} scope="row">                                        
                             <td>{video.id}</td>
                             <td>{video.title}</td>
                             <td><a onClick={() => handleVideoView(video, video.id, video.title)}>Watch Lecture</a></td>
                             <td>45 mins</td>  
                         </tr>
-                        <tr className="spacer"><td colSpan="200"></td></tr>  
+                        <tr key={`spacer-${video.id}`} className="spacer"><td colSpan="200"></td></tr>  
                     </>
                     )
                     )}                                    
                     </tbody>
                   </table>
                 </div>
+                {(localStorage.getItem('email') == course.author.email) && (localStorage.getItem('userId') == course.author.id) ? (<div>
+                    <br />
+                    <button className="btn btn-primary mx-2" onClick={() => handleClick()}>Add Lecture</button>
+                </div>) : <></>
+                
+                }
             </div>
             ) }
         </div>   

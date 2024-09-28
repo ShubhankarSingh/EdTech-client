@@ -10,9 +10,6 @@ const AddVideos = () => {
     });
 
     const { courseId } = useParams(); 
-
-    console.log(courseId)
-
     const [successMessage, setSuccessMessage] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
 

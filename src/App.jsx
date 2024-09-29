@@ -15,6 +15,7 @@ import StreamLecture from "./components/course/StreamLecture"
 import NavBar from "./components/layout/NavBar"
 import { AuthProvider, useAuth } from "./components/auth/AuthProvider"
 import Profile from "./components/auth/Profile"
+import InstructorInterface from "./components/users/InstructorInterface"
 
 
 function App() {
@@ -29,11 +30,14 @@ function App() {
           <Route path="/register" element={ <Registration/> }></Route>
           <Route path="/login" element={ <Login/> }></Route>
           <Route path="/user/profile" element={ <Profile/> }></Route>
+          
           <Route path="/course/add-course" element={ <AddCourse/> }></Route>
           <Route path="/courses/:category" element={ <Courses/> }></Route>
           <Route path="/course/:title" element={ <CourseDescription/> }></Route>
           <Route path="/course/:title/lesson/:videoId" element={ <StreamLecture/> }></Route>
           <Route path="/course/:courseId/:title/add-lecture" element={ <AddVideos/> }></Route>
+
+          <Route path="/instructor/courses/" element={<InstructorInterface/>} ></Route>
         </Routes>
       </BrowserRouter>
       </AuthProvider>

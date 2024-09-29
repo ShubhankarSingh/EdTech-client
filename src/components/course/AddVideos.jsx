@@ -25,10 +25,10 @@ const AddVideos = () => {
         e.preventDefault();
         console.log("Inside video form submit");
         try {
-            
             const response = await addLecture(video, courseId); 
             console.log(response)
             if(response == 200) {
+                window.location.reload()
                 setVideo({ title: "", url: "" });
                 setSuccessMessage("Lecture added successfully!");
             }

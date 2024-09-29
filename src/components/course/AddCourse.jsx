@@ -15,10 +15,8 @@ const AddCourse = () => {
     })
 
     const navigate = useNavigate()
-    
-   
-
     const [categories, setCategories] = useState([]);
+
     const [successMessage, setSuccessMessage] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
     const [imagePreview, setImagePreview] = useState("");
@@ -26,7 +24,13 @@ const AddCourse = () => {
     useEffect(()=>{
         getAllCategories().then((data)=>{
             setCategories(data);
-        })
+            if(data.length > 0){
+                setCourse(prevState =>({
+                    ...prevState,
+                    category: data[0]
+                }))
+            }
+        });
     },[])
 
     const handleInputChange = (e) =>{

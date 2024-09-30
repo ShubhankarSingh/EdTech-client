@@ -51,6 +51,10 @@ const CourseDescription = () => {
     const handleClick = () => {
         navigate(`/course/${courseId}/${formmatedTitle}/add-lecture`)
     }
+
+    const handleAddReview = () => {
+        navigate(`/course/${courseId}/${formmatedTitle}/add-review`, {state: {courseId: courseId, username: course.author.name}})
+    }
     
     return (
     
@@ -69,7 +73,7 @@ const CourseDescription = () => {
                                   <img src={`data:image/png;base64, ${course.author.profilePicture}`} title="" alt="profile pic" />
                                 </div>
                                 <div className="media-body">
-                                    <label>{course.author.firstName}</label>
+                                    <label>{course.author.name}</label>
                                 </div>
                             </div>
                         </div>
@@ -121,7 +125,7 @@ const CourseDescription = () => {
                                     <img src={`data:image/png;base64, ${course.author.profilePicture}`} title="Profile Picture" alt="profile" />
                                 </div>
                                 <div className="media-body">
-                                    <a href=""><h6>Hello, I'm {course.author.firstName} {course.author.lastName}</h6></a>
+                                    <a href=""><h6>Hello, I'm {course.author.name}</h6></a>
                                 </div>
                             </div>
                             <p>I am a professional software developer for over 14 years. I have trained over 50,000 students how to program, way more than a typical IT Professor at a college does in a lifetime.</p>
@@ -160,10 +164,26 @@ const CourseDescription = () => {
                 </div>
                 {(localStorage.getItem('email') == course.author.email) && (localStorage.getItem('userId') == course.author.id) ? (<div>
                     <br />
-                    <button className="btn btn-primary mx-2" onClick={() => handleClick()}>Add Lecture</button>
+                    <button className="btn btn-primary mx-2" 
+                     style={{ borderRadius: '0', padding: '7px', margin: '0' }} 
+                     onClick={() => handleClick()}
+                     >
+                     Add Lecture
+                     </button>
                 </div>) : <></>
-                
                 }
+
+                {(localStorage.getItem('email') != course.author.email) && (localStorage.getItem('userId') != course.author.id) ? (<div>
+                    <br />
+                    <button className="btn btn-primary mx-2" 
+                     style={{ borderRadius: '0', padding: '7px', margin: '0' }} 
+                     onClick={() => handleAddReview()}
+                     >
+                     Add a review
+                     </button>
+                </div>) : <></>
+                }
+
             </div>
             ) }
         </div>   

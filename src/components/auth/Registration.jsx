@@ -6,8 +6,7 @@ import { useNavigate } from "react-router-dom";
 const Registration = () => {
 
     const [registration, setRegistration] = useState({
-        firstName: "",
-        lastName: "",
+        name: "",
         email: "",
         password:""
     });
@@ -30,7 +29,7 @@ const Registration = () => {
                 alert("Account created successfully!")
                 setSuccessMessage("Registartion successful")
                 setErrorMessage("")
-                setRegistration({ firstName: "", lastName: "", email: "", password: "" })
+                setRegistration({ name: "", email: "", password: "" })
                 navigate("/login")
             }
         }catch(error){
@@ -55,31 +54,16 @@ const Registration = () => {
                     <div className="card-body">
                     <form onSubmit={handleRegistration} className="auth-form">
                         <div className="mb-3">
-                        <label htmlFor="firstName" className="form-label">
-                            First Name
+                        <label htmlFor="name" className="form-label">
+                            Name
                         </label>
                         <input
                             type="text"
                             className="form-control"
-                            value={registration.firstName}
+                            value={registration.name}
                             onChange={handleInputChange}
-                            name="firstName"
-                            id="firstName"
-                            aria-describedby="nameHelp"
-                        />
-                        </div>
-
-                        <div className="mb-3">
-                        <label htmlFor="lastName" className="form-label">
-                            Last Name
-                        </label>
-                        <input
-                            type="text"
-                            className="form-control"
-                            value={registration.lastName}
-                            onChange={handleInputChange}
-                            name="lastName"
-                            id="lastName"
+                            name="name"
+                            id="name"
                             aria-describedby="nameHelp"
                         />
                         </div>

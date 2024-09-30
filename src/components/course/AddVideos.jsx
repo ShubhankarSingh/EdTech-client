@@ -23,7 +23,6 @@ const AddVideos = () => {
 
     const handleFormSubmit = async (e) => {
         e.preventDefault();
-        console.log("Inside video form submit");
         try {
             const response = await addLecture(video, courseId); 
             console.log(response)

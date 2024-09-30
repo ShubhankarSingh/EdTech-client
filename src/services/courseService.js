@@ -29,8 +29,6 @@ export async function addCourse(author, title, description, shortDescription, la
     // Append the thumbnail file
     formData.append('thumbnail', thumbnail);
 
-    console.log("User id: " + author)
-
     try {
         
         const response = await api.post("/courses/add-course", formData, {
@@ -112,6 +110,28 @@ export async function getAllLectures(courseId) {
         return response
     }catch(error){
         console.log(`Error fetching lectures: ${error.message}`)
+    }
+    
+}
+
+export async function addReview(review) {
+
+    // const formData = new FormData()
+    // formData.append('description', review.description)
+    // formData.append('rating', review.rating)
+    // formData.append('courseId', review.courseId)
+    // formData.append('userId', review.userId)
+    // formData.append('username', review.username)
+    
+    try{
+        const response = await api.addReview("/reviews/add-review", review, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        return response
+    }catch (error) {
+        console.log(`Error adding review ${error.message}`);
     }
     
 }

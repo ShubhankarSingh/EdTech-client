@@ -73,7 +73,7 @@ const Profile = () => {
 										<div className="d-flex flex-column align-items-center text-center">
 											<img className="profile-pic" src={`data:image/png;base64, ${user.profilePicture}`} style={{ height: "200px", width: "200px", borderRadius: "50%" }} alt="profile" />
 											<div className="mt-3">
-												<h4>{user.firstName}</h4>
+												<h4>{user.name}</h4>
 												<p className="text-muted font-size-sm">XYZ Street, Bangalore, Karnataka</p>
 											</div>
 										</div>
@@ -85,19 +85,10 @@ const Profile = () => {
 									<div className="card-body">
 										<div className="row">
 											<div className="col-sm-3">
-												<h6 className="mb-0">First Name</h6>
+												<h6 className="mb-0">Name</h6>
 											</div>
 											<div className="col-sm-9 text-secondary">
-												{user.firstName}
-											</div>
-										</div>
-										<br />
-										<div className="row">
-											<div className="col-sm-3">
-												<h6 className="mb-0">Last Name</h6>
-											</div>
-											<div className="col-sm-9 text-secondary">
-												{user.lastName}
+												{user.name}
 											</div>
 										</div>
 										<br />
@@ -119,7 +110,8 @@ const Profile = () => {
 												<input id="photo" name="photo" type="file" className="form-control" onChange={handleImageChange} />
 											</div>
 											{/* {imagePreview && <img src={imagePreview} alt="Thumbnail" style={{ maxWidth: "200px", maxHeight: "200px" }}></img>} */}
-											<button type="submit" className="btn btn-primary auth-button w-50 my-3">
+											<button type="submit" className="btn btn-primary auth-button w-50 my-3"
+												style={{ borderRadius: '0', padding: '7px', margin: '0' }}>
 												Update
 											</button>
 										</form>

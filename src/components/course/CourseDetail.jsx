@@ -45,7 +45,7 @@ const CourseDetail = ({course}) => {
                         </div>
                         <div className="postcard__bar"></div>
                         <div className="postcard__preview-txt">
-                            <p>{course.author.firstName + " " + course.author.lastName}</p> 
+                            <p>{course.author.name }</p> 
                         </div>
                         <ul className="postcard__tagbox">
                             <button type="button" className="btn btn-outline-warning" onClick={handleView}>

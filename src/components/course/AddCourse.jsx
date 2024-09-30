@@ -95,11 +95,6 @@ const AddCourse = () => {
                     </div>
 
                     <div className="mb-3">
-                        <label htmlFor="author" className="form-label">Author</label>
-                        <input id="author" name="author" type="text" className="form-control" value={course.author} onChange={handleInputChange} />
-                    </div>
-
-                    <div className="mb-3">
                         <label htmlFor="category" className="form-label">Category</label>
                         <select className="form-select" name="category" id="category" value={course.category.categoryType} onChange={handleCategoryChange}>
                             {categories.map((category) => (
@@ -135,7 +130,11 @@ const AddCourse = () => {
                     </div>
 
                     <div className="text-center">
-                        <button type="submit" className="btn btn-primary w-100 mt-3">Add Course</button>
+                        <button type="submit" className="btn btn-primary w-100 mt-3" 
+                            style={{ borderRadius: '0', padding: '10px', margin: '0' }}>
+                            Add Course
+                        </button>
+                        
                     </div>
                 </form>
             </div>

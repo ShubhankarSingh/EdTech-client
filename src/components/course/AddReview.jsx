@@ -4,17 +4,27 @@ import { addReview } from "../../services/courseService"
 
 const AddReview = () => {
 
-    const user = localStorage.getItem('userId')
+    const userId = Number(localStorage.getItem('userId'))
+    const username = localStorage.getItem('username')
 
     const location = useLocation()
-    const {courseId, username} =  location.state || {}
+    const {courseId} =  location.state || {}
+    
+    const getCurrentDate = () => {
+        const date = new Date()
+        const yyyy = date.getFullYear()
+        const mm = String(date.getMonth() + 1).padStart(2, '0')
+        const dd = String(date.getDate()).padStart(2, '0')
+        return `${yyyy}-${mm}-${dd}`
+    }
 
     const [review, SetReview] = useState({
         description: "",
-        userId: user,
+        userId: userId,
         username: username,
         rating: "0",
-        course: courseId
+        courseId: courseId,
+        timestamp: getCurrentDate()
     });
     const [successMessage, setSuccessMessage] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
@@ -32,7 +42,7 @@ const AddReview = () => {
         e.preventDefault();
         try {
             const response = await addReview(review); 
-            console.log(response)
+            console.log(response.data)
             if(response == 200) {
                 window.location.reload()
                 setSuccessMessage("Review added successfully!");

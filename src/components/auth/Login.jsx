@@ -25,9 +25,9 @@ const Login = () => {
         const loginSuccess = await loginUser(login)
         console.log(loginSuccess)
         if(loginSuccess.status === 200){
-            const {id, email, token} = loginSuccess.data
+            const {id, email, name, token} = loginSuccess.data
             // const email = loginSuccess.data.email
-            auth.login(id, email, token)
+            auth.login(id, email, name, token)
             navigate("/course/add-course")
         }else{
             setErrorMessage("Invalid username or password. Please try again.")

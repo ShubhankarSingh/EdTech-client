@@ -6,10 +6,11 @@ export const AuthProvider = ({children}) => {
 
     const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem('token'))
 
-    const login = (id, email, token) => {
+    const login = (id, email, name, token) => {
         setIsAuthenticated(true)
         localStorage.setItem('userId', id)
         localStorage.setItem('email', email)
+        localStorage.setItem('username', name)
         localStorage.setItem("token", token)
        
     }
@@ -18,6 +19,7 @@ export const AuthProvider = ({children}) => {
         setIsAuthenticated(false)
         localStorage.removeItem("token")
         localStorage.removeItem("email")
+        localStorage.removeItem('username')
         localStorage.removeItem("userId")
     }
 

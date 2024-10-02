@@ -53,7 +53,7 @@ const CourseDescription = () => {
     }
 
     const handleAddReview = () => {
-        navigate(`/course/${courseId}/${formmatedTitle}/add-review`, {state: {courseId: courseId, username: course.author.name}})
+        navigate(`/course/${courseId}/${formmatedTitle}/add-review`, {state: {courseId: courseId}})
     }
     
     return (

@@ -122,9 +122,9 @@ export async function addReview(review) {
     // formData.append('courseId', review.courseId)
     // formData.append('userId', review.userId)
     // formData.append('username', review.username)
-    
+    console.log(review)
     try{
-        const response = await api.addReview("/reviews/add-review", review, {
+        const response = await api.post("/reviews/add-review", review, {
             headers: {
                 'Content-Type': 'application/json'
             }

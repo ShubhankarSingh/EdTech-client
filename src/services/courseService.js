@@ -10,7 +10,7 @@ export async function getAllCategories(){
         const response = await api.get("/categories/all")
         return response.data
     }catch(error){
-        throw new Error("Error fetching categories")
+        throw new Error(`Error fetching categories: ${error.message}`)
     }
 }
 
@@ -38,7 +38,7 @@ export async function addCourse(author, title, description, shortDescription, la
         });
         return response;
     } catch (error) {
-        console.log(`Error adding course ${error.message}`);
+        console.log(`Error adding course: ${error.message}`);
         return [];
     }
 }
@@ -62,7 +62,7 @@ export async function getCourseById(id) {
         const response = await api.get(`/courses/course/${id}`)
         return response
     }catch(error){
-        console.log(`Error fetching course ${error.message}`)
+        console.log(`Error fetching course: ${error.message}`)
     }
 
 }
@@ -74,7 +74,7 @@ export async function getAllCoursesByCategory(category) {
 
         return response
     }catch(error){
-        console.log(`Error fetching course ${error.message}`)
+        console.log(`Error fetching course: ${error.message}`)
     }
 }
 
@@ -96,7 +96,7 @@ export async function addLecture(video, courseId){
         }
         return response.status
     }catch(error){
-        console.log(`Error adding lecture ${error.message}`)
+        console.log(`Error adding lecture: ${error.message}`)
     }
 }
 
@@ -114,14 +114,9 @@ export async function getAllLectures(courseId) {
     
 }
 
+//API for Reviews
 export async function addReview(review) {
 
-    // const formData = new FormData()
-    // formData.append('description', review.description)
-    // formData.append('rating', review.rating)
-    // formData.append('courseId', review.courseId)
-    // formData.append('userId', review.userId)
-    // formData.append('username', review.username)
     console.log(review)
     try{
         const response = await api.post("/reviews/add-review", review, {
@@ -131,7 +126,19 @@ export async function addReview(review) {
         })
         return response
     }catch (error) {
-        console.log(`Error adding review ${error.message}`);
+        console.log(`Error adding review: ${error.message}`);
+    }
+    
+}
+
+
+export async function  getAllReviews(courseId) {
+
+    try{
+        const response = await api.get(`/reviews/${courseId}`)
+        return response;
+    }catch(error){
+        console.log(`Error fetching reviews: ${error.message}`);
     }
     
 }

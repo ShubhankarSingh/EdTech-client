@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom"
 import StreamLecture from "./StreamLecture"
 import { getCourseById } from "../../services/courseService"
 import "./styles/CourseDescription.css"
+import Reviews from "./Reviews"
 
 const CourseDescription = () => {
 
@@ -184,6 +185,7 @@ const CourseDescription = () => {
                 </div>) : <></>
                 }
 
+                <Reviews reviews={course.reviews}/>
             </div>
             ) }
         </div>   

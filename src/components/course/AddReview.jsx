@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useLocation } from "react-router-dom"
+import { useLocation, useNavigate } from "react-router-dom"
 import { addReview } from "../../services/courseService"
 
 const AddReview = () => {
@@ -7,6 +7,7 @@ const AddReview = () => {
     const userId = Number(localStorage.getItem('userId'))
     const username = localStorage.getItem('username')
 
+    const navigate = useNavigate()
     const location = useLocation()
     const {courseId} =  location.state || {}
     
@@ -42,8 +43,7 @@ const AddReview = () => {
         e.preventDefault();
         try {
             const response = await addReview(review); 
-            console.log(response.data)
-            if(response == 200) {
+            if(response.status == 200) {
                 window.location.reload()
                 setSuccessMessage("Review added successfully!");
             }

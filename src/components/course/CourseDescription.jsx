@@ -174,7 +174,8 @@ const CourseDescription = () => {
                 </div>) : <></>
                 }
 
-                {(localStorage.getItem('email') != course.author.email) && (localStorage.getItem('userId') != course.author.id) ? (<div>
+                {(localStorage.getItem('email') != course.author.email) && (localStorage.getItem('userId') != course.author.id) 
+                ? (<div>
                     <br />
                     <button className="btn btn-primary mx-2" 
                      style={{ borderRadius: '0', padding: '7px', margin: '0' }} 
@@ -184,7 +185,7 @@ const CourseDescription = () => {
                      </button>
                 </div>) : <></>
                 }
-
+                 
                 <Reviews reviews={course.reviews}/>
             </div>
             ) }

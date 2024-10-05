@@ -3,6 +3,8 @@ import {Routes, Route, BrowserRouter} from 'react-router-dom'
 import './App.css'
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css"
 import '/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js'
+import 'bootstrap-icons/font/bootstrap-icons.css';
+//import '@fotawesome/fontawesome-free/css/all.min.css';
 //import "/node_modules/bootstrap/dist/js/bootstrap.min.js"
 import '@popperjs/core'
 import Registration from "./components/auth/Registration"

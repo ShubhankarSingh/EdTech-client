@@ -21,6 +21,8 @@ export const AuthProvider = ({children}) => {
         localStorage.removeItem("email")
         localStorage.removeItem('username')
         localStorage.removeItem("userId")
+        localStorage.removeItem('isReviewAdded')
+        localStorage.clear();
     }
 
     return (

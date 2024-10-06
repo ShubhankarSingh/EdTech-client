@@ -4,6 +4,7 @@ import StreamLecture from "./StreamLecture"
 import { getCourseById } from "../../services/courseService"
 import "./styles/CourseDescription.css"
 import Reviews from "./Reviews"
+import { useReview } from "./CourseContext"
 
 const CourseDescription = () => {
 
@@ -22,6 +23,23 @@ const CourseDescription = () => {
     useEffect(()=>{
         getCourse(courseId)
     },[courseId])
+
+
+    // check if current user has already added a review
+    const reviewCheck = useReview()
+    var isReviewAdded
+    useEffect(() => {
+        if (course) {
+            const userId = localStorage.getItem('userId')
+            isReviewAdded = course.reviews.some((review) => review.userId === parseInt(userId));
+            if (isReviewAdded) {
+                reviewCheck.addReviewCheck();
+            } else {
+                reviewCheck.removeReviewCheck();  // Ensure removal in case no review exists
+            }
+        }
+    }, [course, reviewCheck]);
+
 
     if (!course) {
         return (
@@ -48,15 +66,15 @@ const CourseDescription = () => {
     if(course.videos.length > 0){
         previewVideoId = course.videos[0].id
     }
-
+    
     const handleClick = () => {
         navigate(`/course/${courseId}/${formmatedTitle}/add-lecture`)
     }
 
     const handleAddReview = () => {
-        navigate(`/course/${courseId}/${formmatedTitle}/add-review`, {state: {courseId: courseId}})
+        navigate(`/course/${courseId}/${formmatedTitle}/add-review`, {state: {courseId: courseId, title: formmatedTitle, }})
     }
-    
+  
     return (
     
     <div className="light">   
@@ -175,6 +193,7 @@ const CourseDescription = () => {
                 }
 
                 {(localStorage.getItem('email') != course.author.email) && (localStorage.getItem('userId') != course.author.id) 
+                    && localStorage.getItem('isReviewAdded') === 'false'
                 ? (<div>
                     <br />
                     <button className="btn btn-primary mx-2" 

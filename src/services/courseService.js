@@ -117,7 +117,6 @@ export async function getAllLectures(courseId) {
 //API for Reviews
 export async function addReview(review) {
 
-    console.log(review)
     try{
         const response = await api.post("/reviews/add-review", review, {
             headers: {
@@ -131,7 +130,6 @@ export async function addReview(review) {
     
 }
 
-
 export async function  getAllReviews(courseId) {
 
     try{
@@ -139,6 +137,17 @@ export async function  getAllReviews(courseId) {
         return response;
     }catch(error){
         console.log(`Error fetching reviews: ${error.message}`);
+    }
+    
+}
+
+export async function deleteReview(reviewId) {
+
+    try{
+        const response = await api.delete(`/reviews/delete/${reviewId}`)
+        return response
+    }catch(error){
+        console.log(`Error deleting review: ${error.message}`);
     }
     
 }

@@ -19,6 +19,7 @@ import { AuthProvider, useAuth } from "./components/auth/AuthProvider"
 import Profile from "./components/auth/Profile"
 import InstructorInterface from "./components/users/InstructorInterface"
 import AddReview from "./components/course/AddReview"
+import { ReviewProvider, useReview } from "./components/course/CourseContext"
 
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
     <main>
 
       <AuthProvider>
+      <ReviewProvider>
       <BrowserRouter>
       <NavBar/>
         <Routes>
@@ -37,13 +39,14 @@ function App() {
           <Route path="/course/add-course" element={ <AddCourse/> }></Route>
           <Route path="/courses/:category" element={ <Courses/> }></Route>
           <Route path="/course/:title" element={ <CourseDescription/> }></Route>
+          
           <Route path="/course/:title/lesson/:videoId" element={ <StreamLecture/> }></Route>
           <Route path="/course/:courseId/:title/add-lecture" element={ <AddVideos/> }></Route>
           <Route path="/course/:courseId/:title/add-review" element={ <AddReview/> }></Route>
-
           <Route path="/instructor/courses/" element={<InstructorInterface/>} ></Route>
         </Routes>
       </BrowserRouter>
+      </ReviewProvider>
       </AuthProvider>
       
     </main>

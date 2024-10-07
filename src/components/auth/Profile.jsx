@@ -24,6 +24,7 @@ const Profile = () => {
 
     },[userId])
 
+	
 	const handleImageChange = (e) =>{
 		const selectedImage = e.target.files[0]
 		setProfilePicture({...profilePicture, photo:selectedImage})
@@ -46,6 +47,11 @@ const Profile = () => {
 	const handleClick = (title, id) => {
 		const formmatedTitle = title.replace(/\s/g, '-').replace(/-+/g, '-').toLowerCase()
 		navigate(`/course/${formmatedTitle}`, {state : {courseId: id}})
+	}
+
+	const handleCourseEdit = (title, id) => {
+		const formmatedTitle = title.replace(/\s/g, '-').replace(/-+/g, '-').toLowerCase()
+		navigate(`/course/edit/${id}/${formmatedTitle}/`)
 	}
 
 	if (!user) {
@@ -126,7 +132,7 @@ const Profile = () => {
 					<div className="row">
 						<div className="col-md-4 mb-3">
 							<br />
-							<h2>My Courses</h2>
+							<h3>My Courses</h3>
 							<div className="card">
 								<div className="card-body">
 									<a className="d-flex flex-column align-items-center text-center" onClick={() => handleClick(course.title, course.courseId)}>
@@ -135,6 +141,7 @@ const Profile = () => {
 											<h4>{course.title}</h4>
 										</div>
 									</a>
+									<button className="btn btn-danger" onClick={() => handleCourseEdit(course.title, course.courseId)}>Edit Course</button>
 								</div>
 							</div>
 						</div>

@@ -49,7 +49,6 @@ const AddCourse = () => {
         setImagePreview(URL.createObjectURL(selectedImage))
     }
 
-
     const handleFormSubmit = async (e) => {
         e.preventDefault()
 

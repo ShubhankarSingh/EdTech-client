@@ -37,9 +37,9 @@ const Reviews = ({reviews}) => {
                     <div className="col-md-12">
                         <div className="d-flex align-items-center gap-2">
                             <h4 className="m-0">
-                                <i className="bi bi-star-fill" style={{ color: "#f5c518" }}></i> {totalRating} course rating |
+                                <i className="bi bi-star-fill" style={{ color: "#f5c518", fontSize: '20px'}}></i> {totalRating} course rating |
                             </h4>
-                            <h4 className="m-0">{reviews.length} ratings</h4>
+                            <h4 className="m-0">{reviews.length > 1 ? reviews.length + " ratings" : reviews.length + " rating"}</h4>
                         </div>
                     </div>
                 </div>

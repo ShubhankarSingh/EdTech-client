@@ -20,6 +20,7 @@ import Profile from "./components/auth/Profile"
 import InstructorInterface from "./components/users/InstructorInterface"
 import AddReview from "./components/course/AddReview"
 import { ReviewProvider, useReview } from "./components/course/CourseContext"
+import EditCourse from "./components/course/EditCourse"
 
 
 function App() {
@@ -37,6 +38,7 @@ function App() {
           <Route path="/user/profile" element={ <Profile/> }></Route>
           
           <Route path="/course/add-course" element={ <AddCourse/> }></Route>
+          <Route path="/course/edit/:courseId/:title" element={ <EditCourse/> }></Route>
           <Route path="/courses/:category" element={ <Courses/> }></Route>
           <Route path="/course/:title" element={ <CourseDescription/> }></Route>
           

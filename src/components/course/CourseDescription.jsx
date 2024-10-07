@@ -24,13 +24,12 @@ const CourseDescription = () => {
         getCourse(courseId)
     },[courseId])
 
-
     // check if current user has already added a review
     const reviewCheck = useReview()
+    const userId = localStorage.getItem('userId')
     var isReviewAdded
     useEffect(() => {
         if (course) {
-            const userId = localStorage.getItem('userId')
             isReviewAdded = course.reviews.some((review) => review.userId === parseInt(userId));
             if (isReviewAdded) {
                 reviewCheck.addReviewCheck();
@@ -74,7 +73,8 @@ const CourseDescription = () => {
     const handleAddReview = () => {
         navigate(`/course/${courseId}/${formmatedTitle}/add-review`, {state: {courseId: courseId, title: formmatedTitle, }})
     }
-  
+
+ 
     return (
     
     <div className="light">   
@@ -112,9 +112,25 @@ const CourseDescription = () => {
                               facere sapiente! Porro blanditiis nemo sapiente, at iure neque officiis veritatis tempore aliquid illum provident animi debitis optio exercitationem a aliquam magni dignissimos tenetur sunt ex. Natus voluptate.</p>
                         </div>
                     </article>
-                   
+
+                    <h4>Course Content</h4>                   
+                    <div className="container">
+                        
+                    {course.videos && course.videos.map((video) => (
+                            
+                        <>
+                            <div className="row  p-3 mb-2 text-white" style={{ backgroundColor: "grey", cursor: "pointer" }}  key={video.id} onClick={() => handleVideoView(video, video.id, video.title)}>                                        
+                                <div className="col"><i className="bi bi-play-btn-fill"></i> {video.title}</div>
+                                {/* <div className="col d-flex justify-content-center"><a onClick={() => handleVideoView(video, video.id, video.title)}><i class="bi bi-play-btn-fill"></i></a></div> */}
+                                <div className="col d-flex justify-content-end">15 mins</div>  
+                            </div>  
+                        </>
+                        )
+                        )}                                    
+                    </div>   
                 </div>
-                <div className="col-lg-4 m-15px-tb blog-aside">
+
+                <div className="col-lg-4 m-15 px-tab blog-aside">
                     
                     <div className="widget widget-post">
                         <div className="widget-title">
@@ -123,14 +139,13 @@ const CourseDescription = () => {
                         <div className="widget-body">         
                           
                             <h5 style={{color: 'black'}}>Course Preview</h5>                            
-                            <video width="300" height="200" controls >
+                            <video width="300" height="200" controls>
                                 {previewVideoId ? (
                                     <source src={`http://localhost:8080/courses/play/${previewVideoId}`} type="video/mp4" />
                                 ): (
                                     <source src="" />
                                 )}
                             </video>
-                          
                         </div>
                     </div>
                     
@@ -152,26 +167,20 @@ const CourseDescription = () => {
                     </div>
                                     
                 </div>
-                <div className="table-responsive custom-table-responsive" style={{marginLeft: "20px", marginRight: "100px", border: "1px solid rgb(218, 204, 204)"}}>
+                
+                {/* <h4>Course Content</h4>
+                <div className="table-responsive custom-table-responsive">
 
                   <table className="table custom-table">
-                    <thead>
-                      <tr>                                                   
-                        <th scope="col">S.No.</th>
-                        <th scope="col">Lesson Name</th>                       
-                        <th scope="col">Video</th>
-                        <th scope="col">Duration</th>
-                      </tr>
-                    </thead>
+                    
                     <tbody>
                         
                    {course.videos && course.videos.map((video) => (
                         
                     <>
                         <tr key={video.id} scope="row">                                        
-                            <td>{video.id}</td>
                             <td>{video.title}</td>
-                            <td><a onClick={() => handleVideoView(video, video.id, video.title)}>Watch Lecture</a></td>
+                            <td><a onClick={() => handleVideoView(video, video.id, video.title)}><i class="bi bi-play-btn-fill"></i></a></td>
                             <td>45 mins</td>  
                         </tr>
                         <tr key={`spacer-${video.id}`} className="spacer"><td colSpan="200"></td></tr>  
@@ -180,7 +189,7 @@ const CourseDescription = () => {
                     )}                                    
                     </tbody>
                   </table>
-                </div>
+                </div> */}
                 {(localStorage.getItem('email') == course.author.email) && (localStorage.getItem('userId') == course.author.id) ? (<div>
                     <br />
                     <button className="btn btn-primary mx-2" 

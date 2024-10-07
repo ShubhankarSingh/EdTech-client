@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { useParams } from "react-router-dom";
-import { addLecture } from "../../services/courseService";
+import React, { useEffect, useState } from 'react';
+import { useNavigate, useParams } from "react-router-dom";
+import { addLecture, getCourseById } from "../../services/courseService";
 
 
 const AddVideos = () => {
@@ -9,9 +9,19 @@ const AddVideos = () => {
         url: ""
     });
 
+    const [course, setCourse] = useState();
     const { courseId } = useParams(); 
     const [successMessage, setSuccessMessage] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
+    const navigate = useNavigate()
+    
+    useEffect(()=>{
+        getCourseById(courseId).then((response)=>{
+            setCourse(response.data)
+        }).catch((error)=>{
+            console.log(error)
+        })
+    },[courseId])
 
     const handleInputChange = (e) => {
         setVideo({...video, [e.target.name]: e.target.value});
@@ -39,6 +49,25 @@ const AddVideos = () => {
             setSuccessMessage("");
         }, 5000);
     };
+
+    if (!course) {
+        return (
+            <div className="container d-flex justify-content-center align-items-start" style={{ minHeight: "100vh", paddingTop: "100px" }}>
+                <div className="text-center">
+                    <div className="spinner-border text-success" role="status" style={{ width: "3rem", height: "3rem" }}>
+                        
+                    </div>
+                    <p className="mt-3 text-center">Loading...</p>
+                </div>
+            </div>
+        );
+    }
+
+    const formmatedTitle = course.title.replace(/\s/g, '-').replace(/-+/g, '-').toLowerCase()
+
+    if(course.author.id != localStorage.getItem('userId')){
+        navigate(`/course/${formmatedTitle}`, {state: {courseId : course.courseId}})
+    }
 
     return (
     <div className="container my-5">

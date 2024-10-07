@@ -43,6 +43,34 @@ export async function addCourse(author, title, description, shortDescription, la
     }
 }
 
+export async function updateCourse(course, courseId) {
+    // const formData = new FormData();
+    
+    // formData.append('userId', author);
+    // formData.append('title', title);
+    // formData.append('description', description);
+    // formData.append('shortDescription', shortDescription);
+    // formData.append('language', language);
+    // formData.append('createdDate', createdDate);
+    // formData.append('id', category.id); 
+    
+    // // Append the thumbnail file
+    // formData.append('thumbnail', thumbnail);
+
+    try {
+        
+        const response = await api.put(`/courses/update/${courseId}`, course, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        return response;
+    } catch (error) {
+        console.log(`Error updating course: ${error.message}`);
+        return [];
+    }
+}
+
 
 // export async function getCourse(courseId) {
     
@@ -71,7 +99,6 @@ export async function getAllCoursesByCategory(category) {
     try{
        
         const response = await api.get(`/courses/${category}`)
-
         return response
     }catch(error){
         console.log(`Error fetching course: ${error.message}`)

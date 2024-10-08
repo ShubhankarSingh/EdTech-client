@@ -72,18 +72,6 @@ export async function updateCourse(course, courseId) {
 }
 
 
-// export async function getCourse(courseId) {
-    
-//     try{
-//         console.log("Inside Get a single course")
-//         const response = await api.get(`/courses/course/${courseId}`)
-
-//         return response
-//     }catch(error){
-//         console.log(`Error fetching course ${error.message}`)
-//     }
-// }
-
 export async function getCourseById(id) {
     
     try{
@@ -127,7 +115,6 @@ export async function addLecture(video, courseId){
     }
 }
 
-
 export async function getAllLectures(courseId) {
 
     try{
@@ -139,6 +126,28 @@ export async function getAllLectures(courseId) {
         console.log(`Error fetching lectures: ${error.message}`)
     }
     
+}
+
+export async function updateLecture(courseId, videoId, video){
+
+
+    const formData = new FormData()
+    formData.append('title', video.title)
+    formData.append('url', video.url)
+
+    try{
+        const response = await api.put(`/courses/${courseId}/update-lecture/${videoId}`, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        })
+        if (response.status === 200) {
+            alert("Lecture updated successfully")
+        }
+        return response
+    }catch(error){
+        console.log(`Error updating lecture: ${error.message}`)
+    }
 }
 
 //API for Reviews

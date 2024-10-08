@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import { useLocation, useParams } from "react-router-dom"
+import { useLocation, useNavigate, useParams } from "react-router-dom"
 import { getCourseById, updateCourse } from "../../services/courseService"
 
 const EditCourse = () => {
@@ -11,6 +11,7 @@ const EditCourse = () => {
         language: ""
     });
     const [imagePreview, setImagePreview] = useState("");
+    const navigate = useNavigate()
 
     useEffect(()=>{
         getCourseById(courseId).then((response)=>{

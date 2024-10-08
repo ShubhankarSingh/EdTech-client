@@ -21,6 +21,7 @@ import InstructorInterface from "./components/users/InstructorInterface"
 import AddReview from "./components/course/AddReview"
 import { ReviewProvider, useReview } from "./components/course/CourseContext"
 import EditCourse from "./components/course/EditCourse"
+import EditLectures from "./components/course/EditLectures"
 
 
 function App() {
@@ -44,6 +45,8 @@ function App() {
           
           <Route path="/course/:title/lesson/:videoId" element={ <StreamLecture/> }></Route>
           <Route path="/course/:courseId/:title/add-lecture" element={ <AddVideos/> }></Route>
+          <Route path="/course/:courseId/update-lecture/:videoId" element={ <EditLectures/> }></Route>
+
           <Route path="/course/:courseId/:title/add-review" element={ <AddReview/> }></Route>
           <Route path="/instructor/courses/" element={<InstructorInterface/>} ></Route>
         </Routes>

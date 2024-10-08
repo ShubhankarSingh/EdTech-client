@@ -70,6 +70,10 @@ const CourseDescription = () => {
         navigate(`/course/${courseId}/${formmatedTitle}/add-lecture`)
     }
 
+    const handleLectureUpdate = (courseId, videoId) =>{
+        navigate(`/course/${courseId}/update-lecture/${videoId}`);
+    }
+
     const handleAddReview = () => {
         navigate(`/course/${courseId}/${formmatedTitle}/add-review`, {state: {courseId: courseId, title: formmatedTitle, }})
     }
@@ -122,6 +126,7 @@ const CourseDescription = () => {
                             <div className="row  p-3 mb-2 text-white" style={{ backgroundColor: "grey", cursor: "pointer" }}  key={video.id} onClick={() => handleVideoView(video, video.id, video.title)}>                                        
                                 <div className="col"><i className="bi bi-play-btn-fill"></i> {video.title}</div>
                                 {/* <div className="col d-flex justify-content-center"><a onClick={() => handleVideoView(video, video.id, video.title)}><i class="bi bi-play-btn-fill"></i></a></div> */}
+                                <div className="col d-flex justify-content-end" onClick={() => handleLectureUpdate(course.courseId, video.id)}><i class="bi bi-pencil-square"></i></div>
                                 <div className="col d-flex justify-content-end">15 mins</div>  
                             </div>  
                         </>

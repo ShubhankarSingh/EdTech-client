@@ -150,6 +150,17 @@ export async function updateLecture(courseId, videoId, video){
     }
 }
 
+export async function deleteLecture(courseId, videoId) {
+
+    try{
+        const response = await api.delete(`/courses/${courseId}/delete-lecture/${videoId}`)
+        return response
+    }catch(error){
+        console.log(`Error deleting lecture: ${error.message}`);
+    }
+    
+}
+
 //API for Reviews
 export async function addReview(review) {
 

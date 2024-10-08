@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from "react-router-dom"
 import StreamLecture from "./StreamLecture"
-import { getCourseById } from "../../services/courseService"
+import { deleteLecture, getCourseById } from "../../services/courseService"
 import "./styles/CourseDescription.css"
 import Reviews from "./Reviews"
 import { useReview } from "./CourseContext"
@@ -74,6 +74,18 @@ const CourseDescription = () => {
         navigate(`/course/${courseId}/update-lecture/${videoId}`);
     }
 
+    const handleDeleteLecture = async (courseId, videoId) => {
+        const isConfirmed = confirm("Are you sure you want to delete this lecture?")
+        if(isConfirmed){
+            const response = await deleteLecture(courseId, videoId)
+            if(response.status === 200){
+                alert(response.data)
+            }
+            window.location.reload()
+            console.log(response.data)
+        }
+    }
+
     const handleAddReview = () => {
         navigate(`/course/${courseId}/${formmatedTitle}/add-review`, {state: {courseId: courseId, title: formmatedTitle, }})
     }
@@ -123,12 +135,33 @@ const CourseDescription = () => {
                     {course.videos && course.videos.map((video) => (
                             
                         <>
-                            <div className="row  p-3 mb-2 text-white" style={{ backgroundColor: "grey", cursor: "pointer" }}  key={video.id} onClick={() => handleVideoView(video, video.id, video.title)}>                                        
-                                <div className="col"><i className="bi bi-play-btn-fill"></i> {video.title}</div>
-                                {/* <div className="col d-flex justify-content-center"><a onClick={() => handleVideoView(video, video.id, video.title)}><i class="bi bi-play-btn-fill"></i></a></div> */}
-                                <div className="col d-flex justify-content-end" onClick={() => handleLectureUpdate(course.courseId, video.id)}><i class="bi bi-pencil-square"></i></div>
-                                <div className="col d-flex justify-content-end">15 mins</div>  
-                            </div>  
+                        <div className="row p-3 mb-2 text-white align-items-center" style={{ backgroundColor: "grey" }} key={video.id}>
+   
+                            <div className="col-auto">
+                                <button className="btn" style={{ cursor: "pointer" }} onClick={() => handleVideoView(video, video.id, video.title)}>
+                                    <i className="bi bi-play-btn-fill"></i> {video.title}
+                                </button>
+                            </div>
+
+                            <div className="col"></div>
+                            
+                            <div className="col-auto">
+                                <span>15 mins</span>
+                            </div>
+                            
+                            <div className="col-auto">
+                                <button className="btn" style={{ cursor: "pointer" }} onClick={() => handleLectureUpdate(course.courseId, video.id)}>
+                                    <i className="bi bi-pencil-square"></i>
+                                </button>
+                            </div>
+
+                            <div className="col-auto">
+                                <button className="btn" style={{ cursor: "pointer" }} onClick={() => handleDeleteLecture(course.courseId, video.id)}>
+                                    <i className="bi bi-trash3-fill" style={{ color: "red" }}></i>
+                                </button>
+                            </div>
+                        </div>
+
                         </>
                         )
                         )}                                    

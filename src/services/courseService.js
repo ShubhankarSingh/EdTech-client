@@ -15,13 +15,16 @@ export async function getAllCategories(){
 }
 
 
-export async function addCourse(author, title, description, shortDescription, language, category, createdDate, thumbnail) {
+export async function addCourse(author, title, description, shortDescription, originalPrice, 
+                                offerPrice, language, category, createdDate, thumbnail) {
+
     const formData = new FormData();
-    
     formData.append('userId', author);
     formData.append('title', title);
     formData.append('description', description);
     formData.append('shortDescription', shortDescription);
+    formData.append('originalPrice', originalPrice)
+    formData.append('offerPrice', offerPrice)
     formData.append('language', language);
     formData.append('createdDate', createdDate);
     formData.append('id', category.id); 

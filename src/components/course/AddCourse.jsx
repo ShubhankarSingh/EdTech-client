@@ -5,11 +5,20 @@ import {useNavigate} from 'react-router-dom'
 const AddCourse = () => {
 
     const user = localStorage.getItem('userId') 
+
+    const getCurrentDate = () => {
+        const date = new Date()
+        const yyyy = date.getFullYear()
+        const mm = String(date.getMonth() + 1).padStart(2, '0')
+        const dd = String(date.getDate()).padStart(2, '0')
+        return `${yyyy}-${mm}-${dd}`
+    }
     
     const [course, setCourse] = useState({
         author: user, title: "",
         description: "", shortDescription: "",
-        language: "", createdDate: "",
+        originalPrice: 0, offerPrice: 0,
+        language: "", createdDate: getCurrentDate(),
         category: {id: "", categoryType: ""},
         thumbnail: null,
     })
@@ -54,7 +63,8 @@ const AddCourse = () => {
 
         try{
             const response = await addCourse(course.author, course.title, course.description, course.shortDescription,
-                                            course.language, course.category, course.createdDate, course.thumbnail)
+                                            course.originalPrice, course.offerPrice, course.language, 
+                                            course.category, course.createdDate, course.thumbnail)
             
             
             if(response.status === 200){
@@ -111,16 +121,26 @@ const AddCourse = () => {
                         <label htmlFor="shortDescription" className="form-label">Short Description</label>
                         <input id="shortDescription" name="shortDescription" type="text" className="form-control" value={course.shortDescription} onChange={handleInputChange} />
                     </div>
+                    
+                    <div className="mb-3">
+                        <label htmlFor="originalPrice" className="form-label">Original Price</label>
+                        <input id="originalPrice" name="originalPrice" type="text" className="form-control" value={course.originalPrice} onChange={handleInputChange} />
+                    </div>
+
+                    <div className="mb-3">
+                        <label htmlFor="offerPrice" className="form-label">Offer Price</label>
+                        <input id="offerPrice" name="offerPrice" type="text" className="form-control" value={course.offerPrice} onChange={handleInputChange} />
+                    </div>
 
                     <div className="mb-3">
                         <label htmlFor="language" className="form-label">Language</label>
                         <input id="language" name="language" type="text" className="form-control" value={course.language} onChange={handleInputChange} />
                     </div>
 
-                    <div className="mb-3">
+                    {/* <div className="mb-3">
                         <label htmlFor="createdDate" className="form-label">Date</label>
                         <input id="createdDate" name="createdDate" type="date" className="form-control" value={course.createdDate} onChange={handleInputChange} />
-                    </div>
+                    </div> */}
 
                     <div className="mb-3">
                         <label htmlFor="thumbnail" className="form-label">Thumbnail</label>

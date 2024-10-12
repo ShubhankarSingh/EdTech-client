@@ -141,7 +141,8 @@ const Profile = () => {
 											<h4>{course.title}</h4>
 										</div>
 									</a>
-									<button className="btn btn-danger" onClick={() => handleCourseEdit(course.title, course.courseId)}>Edit Course</button>
+									<button className="btn btn-primary" style={{ borderRadius: '0', padding: '8px'}}
+									onClick={() => handleCourseEdit(course.title, course.courseId)}>Edit Course</button>
 								</div>
 							</div>
 						</div>

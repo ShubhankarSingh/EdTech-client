@@ -22,6 +22,7 @@ const EditLectures = () => {
         })
     },[courseId])
 
+
     const handleInputChange = (e) => {
         setVideo({...video, [e.target.name]: e.target.value});
     };

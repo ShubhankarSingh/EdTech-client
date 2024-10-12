@@ -32,7 +32,7 @@ const CourseDetail = ({course}) => {
         <div className="dark">
             <main className="container py-4">
                 
-                <article className="postcard dark blue" style={{ maxHeight: '300px' }}>
+                <article className="postcard dark blue" style={{ maxHeight: '320px' }}>
                     <a className="postcard__img_link" href="#">
                         <img className="postcard__img" alt="Image Title" src={`data:image/png;base64, ${course.thumbnail}`} />  
                     </a>
@@ -47,11 +47,15 @@ const CourseDetail = ({course}) => {
                         <div className="postcard__preview-txt">
                             <p>{course.author.name }</p> 
                         </div>
-                        <ul className="postcard__tagbox">
+                        <div className="postcard__preview-txt">
+                            <h4>₹ <s>{course.originalPrice }</s> {course.offerPrice}</h4> 
+                        </div>
+                        
+                        <div className="postcard__tagbox">
                             <button type="button" className="btn btn-outline-warning" onClick={handleView}>
                                 DETAILS
                             </button>
-                        </ul>
+                        </div>
                     </div>
                 </article>    
             </main>

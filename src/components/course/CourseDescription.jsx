@@ -103,13 +103,15 @@ const CourseDescription = () => {
                         <div className="article-title">
                         
                             <h2>{ course.title }</h2>
-                            <div className="media">
-                                <div className="avatar">
-                                  <img src={`data:image/png;base64, ${course.author.profilePicture}`} title="" alt="profile pic" />
-                                </div>
-                                <div className="media-body">
-                                    <label>{course.author.name}</label>
-                                </div>
+                            <br />
+                            <h5>{course.shortDescription}</h5>
+                            <br />
+                            <p>Created By {course.author.name}</p>
+                            <div className="row">
+                            <div className="col">
+                            <i className="bi bi-patch-exclamation-fill">  Created on {course.createdDate}&nbsp;&nbsp;</i> 
+                            <i className="bi bi-globe2"> {course.language}</i>
+                            </div>
                             </div>
                         </div>
                        

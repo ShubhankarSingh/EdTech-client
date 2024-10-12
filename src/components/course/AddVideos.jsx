@@ -89,8 +89,6 @@ const AddVideos = () => {
                         <button type="submit" className="btn btn-primary w-100 mt-3">Add Lecture</button>
                     </div>
                     </form>
-        {successMessage && <p>{successMessage}</p>}
-        {errorMessage && <p>{errorMessage}</p>}
     </div>
     </div>
     </div>

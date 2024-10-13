@@ -106,7 +106,7 @@ const CourseDescription = () => {
                             <br />
                             <h5>{course.shortDescription}</h5>
                             <br />
-                            <p>Created By {course.author.name}</p>
+                            <p>Created By <a href="" onClick={() => showProfile(course.author.id)}>{course.author.name}</a></p>
                             <div className="row">
                             <div className="col">
                             <i className="bi bi-patch-exclamation-fill">  Created on {course.createdDate}&nbsp;&nbsp;</i> 

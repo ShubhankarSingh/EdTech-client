@@ -70,6 +70,10 @@ const CourseDescription = () => {
         navigate(`/course/${courseId}/${formmatedTitle}/add-lecture`)
     }
 
+    const showProfile = (authorId) => {
+        navigate(`/user/profile`, {state: {authorId: authorId}})
+    }
+
     const handleLectureUpdate = (courseId, videoId) =>{
         navigate(`/course/${courseId}/update-lecture/${videoId}`);
     }
@@ -199,7 +203,7 @@ const CourseDescription = () => {
                                     <img src={`data:image/png;base64, ${course.author.profilePicture}`} title="Profile Picture" alt="profile" />
                                 </div>
                                 <div className="media-body">
-                                    <a href=""><h6>Hello, I'm {course.author.name}</h6></a>
+                                    <p>Hello, I'm <a onClick={() => showProfile(course.author.id)}>{course.author.name}</a></p>
                                 </div>
                             </div>
                             <p>I am a professional software developer for over 14 years. I have trained over 50,000 students how to program, way more than a typical IT Professor at a college does in a lifetime.</p>
@@ -207,29 +211,7 @@ const CourseDescription = () => {
                     </div>
                                     
                 </div>
-                
-                {/* <h4>Course Content</h4>
-                <div className="table-responsive custom-table-responsive">
 
-                  <table className="table custom-table">
-                    
-                    <tbody>
-                        
-                   {course.videos && course.videos.map((video) => (
-                        
-                    <>
-                        <tr key={video.id} scope="row">                                        
-                            <td>{video.title}</td>
-                            <td><a onClick={() => handleVideoView(video, video.id, video.title)}><i class="bi bi-play-btn-fill"></i></a></td>
-                            <td>45 mins</td>  
-                        </tr>
-                        <tr key={`spacer-${video.id}`} className="spacer"><td colSpan="200"></td></tr>  
-                    </>
-                    )
-                    )}                                    
-                    </tbody>
-                  </table>
-                </div> */}
                 {(localStorage.getItem('email') == course.author.email) && (localStorage.getItem('userId') == course.author.id) ? (<div>
                     <br />
                     <button className="btn btn-primary mx-2" 

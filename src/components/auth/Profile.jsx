@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useAuth } from "./AuthProvider"
 import { getUserProfile, updateProfile } from "../../services/authService"
-import { useNavigate } from "react-router-dom"
+import { useLocation, useNavigate } from "react-router-dom"
 
 const Profile = () => {
 
@@ -9,20 +9,27 @@ const Profile = () => {
 	const [profilePicture, setProfilePicture] = useState({
 		photo: null
 	})
-	const [imagePreview, setImagePreview] = useState("")
+	
+	const location = useLocation()
+	const {authorId} = location.state || {}
     const userId = localStorage.getItem('userId')
 	const navigate = useNavigate()
 
     const fetchUserProfile = async (userId) =>{
 		const response = await getUserProfile(userId)
+		console.log(response.data)
 		setUser(response.data)
     }
 
-    useEffect(()=>{
-      
-      fetchUserProfile(userId)
-
-    },[userId])
+	if(authorId != null){
+		useEffect(()=>{
+			fetchUserProfile(authorId)
+		  },[authorId])
+	}else{
+		useEffect(()=>{
+		fetchUserProfile(userId)
+		},[userId])
+	}
 
 	
 	const handleImageChange = (e) =>{
@@ -73,11 +80,13 @@ const Profile = () => {
 				{user && ( // Conditionally render only when user data is available
 					<>
 						<div className="row gutters-sm">
-							<div className="col-md-4 mb-3">
-								<div className="card">
-									<div className="card-body">
+							<div className="col-md-4">
+								<div className="card mt-2">
+									<div className="card-body" style={{ padding: 0}}>
 										<div className="d-flex flex-column align-items-center text-center">
-											<img className="profile-pic" src={`data:image/png;base64, ${user.profilePicture}`} style={{ height: "200px", width: "200px", borderRadius: "50%" }} alt="profile" />
+											<img className="profile-pic" src={`data:image/png;base64, ${user.profilePicture}`} 
+												style={{ height: "200px", width: "200px", borderRadius: "50%" }} alt="profile" 	
+											/>
 											<div className="mt-3">
 												<h4>{user.name}</h4>
 												<p className="text-muted font-size-sm">XYZ Street, Bangalore, Karnataka</p>
@@ -87,8 +96,8 @@ const Profile = () => {
 								</div>
 							</div>
 							<div className="col-md-8">
-								<div className="card mb-3">
-									<div className="card-body">
+								<div className="card">
+									<div className="card-body" style={{ padding: 0}}>
 										<div className="row">
 											<div className="col-sm-3">
 												<h6 className="mb-0">Name</h6>
@@ -107,20 +116,22 @@ const Profile = () => {
 											</div>
 										</div>
 										<br />
-	
-										<form onSubmit={handleSubmit}>
-											<label htmlFor="photo" className="col-sm-3 col-form-label">
-												Profile Picture
-											</label>
-											<div className="col-sm-6">
-												<input id="photo" name="photo" type="file" className="form-control" onChange={handleImageChange} />
-											</div>
-											{/* {imagePreview && <img src={imagePreview} alt="Thumbnail" style={{ maxWidth: "200px", maxHeight: "200px" }}></img>} */}
-											<button type="submit" className="btn btn-primary auth-button w-50 my-3"
-												style={{ borderRadius: '0', padding: '7px', margin: '0' }}>
-												Update
-											</button>
-										</form>
+
+										{(authorId==null || authorId == userId) && (
+											<form onSubmit={handleSubmit}>
+												<label htmlFor="photo" className="col-sm-3 col-form-label">
+													Profile Picture
+												</label>
+												<div className="col-sm-6">
+													<input id="photo" name="photo" type="file" className="form-control" onChange={handleImageChange} />
+												</div>
+												{/* {imagePreview && <img src={imagePreview} alt="Thumbnail" style={{ maxWidth: "200px", maxHeight: "200px" }}></img>} */}
+												<button type="submit" className="btn btn-primary auth-button w-50 my-3"
+													style={{ borderRadius: '0', padding: '7px', margin: '0' }}>
+													Update
+												</button>
+											</form>
+										)}
 									</div>
 								</div>
 							</div>
@@ -128,26 +139,29 @@ const Profile = () => {
 					</>
 				)}
 
-				{user && user.courses && (user.courses.map(course =>(
-					<div className="row">
-						<div className="col-md-4 mb-3">
-							<br />
-							<h3>My Courses</h3>
-							<div className="card">
+				<br />
+				<h4>My Courses</h4>
+				<div className="row">
+					{user && user.courses && (user.courses.map(course =>(
+						<div className="col-md-4 mb-3" key={course.courseId}>
+							<div className="card" style={{width: "18rem", padding: 0}}>
+								<a className="d-flex flex-column align-items-center text-center" onClick={() => handleClick(course.title, course.courseId)}>
+									<img className="card-img-top" src={`data:image/png;base64, ${course.thumbnail}`} style={{ height: "180px", width: "320px" }} alt="profile" />
+								</a>
 								<div className="card-body">
-									<a className="d-flex flex-column align-items-center text-center" onClick={() => handleClick(course.title, course.courseId)}>
-										<img className="profile-pic" src={`data:image/png;base64, ${course.thumbnail}`} style={{ height: "200px", width: "350px" }} alt="profile" />
-										<div className="mt-3">
-											<h4>{course.title}</h4>
-										</div>
-									</a>
-									<button className="btn btn-primary mt-1" style={{ borderRadius: '0', padding: '8px'}}
-									onClick={() => handleCourseEdit(course.title, course.courseId)}>Edit Course</button>
+									<div className="card-text">
+											<h6>{course.title}</h6>
+									</div>
+									{authorId == userId && (
+										<button className="btn btn-primary mt-1" style={{ borderRadius: '0', padding: '8px'}}
+											onClick={() => handleCourseEdit(course.title, course.courseId)}>Edit Course
+										</button>
+									)}
 								</div>
 							</div>
 						</div>
-					</div>
-				)))}
+					)))}
+				</div>
 			</div>
 		</div>
 	);	

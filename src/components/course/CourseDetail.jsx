@@ -24,7 +24,7 @@ const CourseDetail = ({course}) => {
     // Replace %20 (space) with '-' (dash), also replaces multiple dashes with single dash
     const formmatedTitle = course.title.replace(/\s/g, '-').replace(/-+/g, '-').toLowerCase()
     const handleView = () =>{
-        navigate(`/course/${formmatedTitle}/`, {state: {courseId : course.courseId}})
+        navigate(`/course/${formmatedTitle}/`, {state: {title: course.title, courseId : course.courseId}})
     }
 
     return (

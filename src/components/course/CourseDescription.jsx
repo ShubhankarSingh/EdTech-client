@@ -155,6 +155,8 @@ const CourseDescription = () => {
                                 <span>15 mins</span>
                             </div>
                             
+                            {(localStorage.getItem('email') == course.author.email) && (localStorage.getItem('userId') == course.author.id) ? <>
+                                
                             <div className="col-auto">
                                 <button className="btn" style={{ cursor: "pointer" }} onClick={() => handleLectureUpdate(course.courseId, video.id)}>
                                     <i className="bi bi-pencil-square"></i>
@@ -166,6 +168,8 @@ const CourseDescription = () => {
                                     <i className="bi bi-trash3-fill" style={{ color: "red" }}></i>
                                 </button>
                             </div>
+                            </> : <></>
+                            }
                         </div>
 
                         </>

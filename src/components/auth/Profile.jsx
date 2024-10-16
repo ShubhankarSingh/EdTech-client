@@ -80,8 +80,9 @@ const Profile = () => {
 				{user && ( // Conditionally render only when user data is available
 					<>
 						<div className="row gutters-sm">
+							<div className="col-md-1"></div>
 							<div className="col-md-4">
-								<div className="card mt-2">
+								<div className="card profile" style={{ height: "100%"}}>
 									<div className="card-body" style={{ padding: 0}}>
 										<div className="d-flex flex-column align-items-center text-center">
 											<img className="profile-pic" src={`data:image/png;base64, ${user.profilePicture}`} 
@@ -95,8 +96,8 @@ const Profile = () => {
 									</div>
 								</div>
 							</div>
-							<div className="col-md-8">
-								<div className="card">
+							<div className="col-md-6">
+								<div className="card" style={{ height: "100%"}}>
 									<div className="card-body" style={{ padding: 0}}>
 										<div className="row">
 											<div className="col-sm-3">
@@ -135,33 +136,41 @@ const Profile = () => {
 									</div>
 								</div>
 							</div>
+							<div className="col-md-1"></div>
 						</div>
 					</>
 				)}
 
 				<br />
-				<h4>My Courses</h4>
-				<div className="row">
-					{user && user.courses && (user.courses.map(course =>(
-						<div className="col-md-4 mb-3" key={course.courseId}>
-							<div className="card" style={{width: "18rem", padding: 0}}>
-								<a className="d-flex flex-column align-items-center text-center" onClick={() => handleClick(course.title, course.courseId)}>
-									<img className="card-img-top" src={`data:image/png;base64, ${course.thumbnail}`} style={{ height: "180px", width: "320px" }} alt="profile" />
-								</a>
-								<div className="card-body">
-									<div className="card-text">
-											<h6>{course.title}</h6>
+				<div className="row justify-content-center">
+					<div className="col-md-10">
+						<h4>My Courses</h4>
+						<div className="row mt-2">
+							{user && user.courses && user.courses.map((course, index) => (
+								<div className="col-md-4 mb-3" key={course.courseId}>
+									<div className="card" style={{width: "100%", height: "100%", padding: 0}}>
+										<a className="d-flex flex-column align-items-center text-center" onClick={() => handleClick(course.title, course.courseId)}>
+											<img className="card-img-top" src={`data:image/png;base64, ${course.thumbnail}`} style={{ height: "200px", width: "100%" }} alt="course thumbnail" />
+										</a>
+										<div className="card-body">
+											<div className="card-text">
+												<h6>{course.title}</h6>
+												<h6>{course.author}</h6>
+											</div>
+											{(localStorage.getItem('userId') == user.id) && (
+												<button className="btn btn-primary mt-1" style={{ borderRadius: '0', padding: '8px'}}
+													onClick={() => handleCourseEdit(course.title, course.courseId)}>
+													Edit Course
+												</button>
+											)}
+										</div>
 									</div>
-									{authorId == userId && (
-										<button className="btn btn-primary mt-1" style={{ borderRadius: '0', padding: '8px'}}
-											onClick={() => handleCourseEdit(course.title, course.courseId)}>Edit Course
-										</button>
-									)}
 								</div>
-							</div>
+							))}
 						</div>
-					)))}
+					</div>
 				</div>
+
 			</div>
 		</div>
 	);	

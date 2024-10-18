@@ -201,3 +201,25 @@ export async function deleteReview(reviewId) {
     }
     
 }
+
+
+// APIs for course enrollment
+
+export async function enrollCourse(userId, courseId) {
+    
+    try{
+        console.log("Inside enroll course");
+
+        const response = await api.post(`/course/enroll/${courseId}?userId=${userId}`, {}, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        return response
+    }catch(error){
+        console.log(error.message)
+    }
+    
+}
+
+

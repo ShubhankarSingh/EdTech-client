@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from "react-router-dom"
 import StreamLecture from "./StreamLecture"
-import { deleteLecture, getCourseById } from "../../services/courseService"
+import { deleteLecture, enrollCourse, getCourseById } from "../../services/courseService"
 import "./styles/CourseDescription.css"
 import Reviews from "./Reviews"
 import { useReview } from "./CourseContext"
@@ -94,6 +94,15 @@ const CourseDescription = () => {
         navigate(`/course/${courseId}/${formmatedTitle}/add-review`, {state: {courseId: courseId, title: formmatedTitle, }})
     }
 
+    const handleCourseEnroll = async (courseId) =>{ 
+        
+        try{
+            const response = await enrollCourse(userId, courseId)
+            console.log(response)
+        }catch(error){
+            console.log(error)
+        }
+    }
  
     return (
     
@@ -102,7 +111,7 @@ const CourseDescription = () => {
         <div className="container">
         {course && (
             <div className="row align-items-start">
-                <div className="col-lg-7 m-15px-tb">
+                <div className="col-lg-8 m-15px-tb">
                     <article className="article">                        
                         <div className="article-title">
                         
@@ -178,22 +187,23 @@ const CourseDescription = () => {
                     </div>   
                 </div>
 
-                <div className="col-lg-4 m-15 px-tab blog-aside">
+                <div className="col-lg-3 m-15 px-tab blog-aside">
                     
-                    <div className="widget widget-post">
+                    <div className="widget widget-post" style={{ height: "300px" }}>
                         <div className="widget-title">
-                            <h3>INTRODUCTION TO COURSE</h3>
+                            <h3>COURSE PREVIEW</h3>
                         </div>
-                        <div className="widget-body">         
-                          
-                            <h5 style={{color: 'black'}}>Course Preview</h5>                            
-                            <video width="300" height="200" controls>
+                        <div className="widget-body d-flex flex-column justify-content-between" style={{ height: "100%" }}>
+                            <video style={{ width: "100%", height: "170px", objectFit: "cover" }} controls>
                                 {previewVideoId ? (
                                     <source src={`http://localhost:8080/courses/play/${previewVideoId}`} type="video/mp4" />
-                                ): (
+                                ) : (
                                     <source src="" />
                                 )}
                             </video>
+                            <button className="btn btn-md btn-primary px-3 mt-1 w-100" onClick={() => handleCourseEnroll(course.courseId)} style={{ borderRadius: '0' }}>
+                                Enroll
+                            </button>
                         </div>
                     </div>
                     

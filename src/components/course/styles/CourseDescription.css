@@ -70,12 +70,20 @@
   margin-top: 15px;
   margin-bottom: 15px;
   width: 100%;
-  display: inline-block;
-  vertical-align: top;
+  /* display: inline-block;
+  vertical-align: top; */
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
 }
 .blog-aside .widget-body {
   padding: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Ensures button stays at the bottom */
+  height: 100%;
 }
+
 .blog-aside .widget-title {
   padding: 15px;
   border-bottom: 1px solid #eee;

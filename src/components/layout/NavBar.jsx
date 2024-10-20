@@ -19,9 +19,9 @@ const NavBar = (props) => {
     
     return (
         <div id="app-navbar">
-            <nav className="navbar navbar-expand-md navbar-dark navbar-custom py-3">
+            <nav className="navbar navbar-expand-md navbar-dark navbar-custom py-2">
                 <div className="container-fluid">
-                    <Link className="navbar-brand text-light fs-3 mx-4" to="/">EdTech</Link>
+                    <Link className="navbar-brand fs-4 mx-4" to="/">EdTech</Link>
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
                     </button>
@@ -30,16 +30,16 @@ const NavBar = (props) => {
                     <div className="collapse navbar-collapse mx-auto" id="navbarSupportedContent">
                         <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                             {/* <li className="nav-item">
-                                <Link className="nav-link text-light fs-5 mx-2" aria-current="page" to="/">Home</Link>
+                                <Link className="nav-link text-light fs-6 mx-2" aria-current="page" to="/">Home</Link>
                             </li> */}
                             <li className="nav-item dropdown">
-                                <a className="nav-link dropdown-toggle text-light fs-5" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <a className="nav-link dropdown-toggle text-light fs-6" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     Categories
                                 </a>
                                 <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
                                     {categories.map((category) => (
                                         <li key={category.id}>
-                                            <Link className="dropdown-item text-dark fs-5" to={`courses/${category.categoryType}`}>{category.categoryType}</Link>
+                                            <Link className="dropdown-item text-dark fs-6" to={`courses/${category.categoryType}`}>{category.categoryType}</Link>
                                         </li>
                                     ))}
                                 </ul>
@@ -48,11 +48,11 @@ const NavBar = (props) => {
                         
                         <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
                             <li className="nav-item">
-                                <Link className="nav-link text-light fs-5 mx-4" to="/instructor/courses/" role="button">Instructor</Link>
+                                <Link className="nav-link text-light fs-6" to="/instructor/courses/" role="button">Instructor</Link>
                             </li>
 
                             <li className="nav-item">
-                                <Link className="nav-link text-light fs-5 mx-4" to="/my-courses" role="button">My Learning</Link>
+                                <Link className="nav-link text-light fs-6 me-3" to="/my-courses" role="button">My Learning</Link>
                             </li>
                             
                             {isAuthenticated ? (
@@ -60,10 +60,10 @@ const NavBar = (props) => {
                             ) : (
                                 <>
                                     <li className="nav-item">
-                                        <Link className="nav-link text-light fs-5" to="/login" role="button">Login</Link>
+                                        <Link className="nav-link text-light fs-6" to="/login" role="button">Login</Link>
                                     </li>
                                     <li className="nav-item">
-                                        <Link className="nav-link text-light fs-5" to="/register" role="button">Signup</Link>
+                                        <Link className="nav-link text-light fs-6" to="/register" role="button">Signup</Link>
                                     </li>
                                 </>
                             )}

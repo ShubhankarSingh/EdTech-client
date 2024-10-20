@@ -21,10 +21,10 @@ const Logout = () => {
     return (
         <>
             <li className="nav-item">
-                <button className="nav-link text-light fs-5" onClick={loadUserProfile}>Profile</button>
+                <button className="nav-link text-light fs-6" onClick={loadUserProfile}>Profile</button>
             </li>
             <li className="nav-item">
-                <button className="nav-link text-light fs-5" onClick={handleLogout}>Logout</button>
+                <button className="nav-link text-light fs-6" onClick={handleLogout}>Logout</button>
             </li>
         </>
     )

@@ -23,6 +23,7 @@ import { ReviewProvider, useReview } from "./components/course/CourseContext"
 import EditCourse from "./components/course/EditCourse"
 import EditLectures from "./components/course/EditLectures"
 import EnrolledCourses from "./components/course/enrolledCourses/enrolledCourses"
+import Home from "./components/home/home"
 
 
 function App() {
@@ -35,6 +36,7 @@ function App() {
       <BrowserRouter>
       <NavBar/>
         <Routes>
+          <Route path="/" element={ <Home/> }></Route>
           <Route path="/register" element={ <Registration/> }></Route>
           <Route path="/login" element={ <Login/> }></Route>
           <Route path="/user/profile" element={ <Profile/> }></Route>

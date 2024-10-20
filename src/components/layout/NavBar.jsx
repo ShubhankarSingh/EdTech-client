@@ -50,6 +50,10 @@ const NavBar = (props) => {
                             <li className="nav-item">
                                 <Link className="nav-link text-light fs-5 mx-4" to="/instructor/courses/" role="button">Instructor</Link>
                             </li>
+
+                            <li className="nav-item">
+                                <Link className="nav-link text-light fs-5 mx-4" to="/my-courses" role="button">My Learning</Link>
+                            </li>
                             
                             {isAuthenticated ? (
                                 <Logout />

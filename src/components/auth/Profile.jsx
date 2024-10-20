@@ -17,7 +17,6 @@ const Profile = () => {
 
     const fetchUserProfile = async (userId) =>{
 		const response = await getUserProfile(userId)
-		console.log(response.data)
 		setUser(response.data)
     }
 

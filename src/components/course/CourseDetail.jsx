@@ -48,7 +48,13 @@ const CourseDetail = ({course}) => {
                             <p>{course.author.name }</p> 
                         </div>
                         <div className="postcard__preview-txt">
+                            {course.originalPrice != 0 && course.offerPrice != 0 &&
                             <h4>₹ <s>{course.originalPrice }</s> {course.offerPrice}</h4> 
+                            }
+                            {
+                                course.originalPrice == 0 && course.offerPrice == 0 && 
+                                <h4>Free</h4> 
+                            }
                         </div>
                         
                         <div className="postcard__tagbox">

@@ -208,8 +208,6 @@ export async function deleteReview(reviewId) {
 export async function enrollCourse(userId, courseId) {
     
     try{
-        console.log("Inside enroll course");
-
         const response = await api.post(`/course/enroll/${courseId}?userId=${userId}`, {}, {
             headers: {
                 'Content-Type': 'application/json'
@@ -221,5 +219,27 @@ export async function enrollCourse(userId, courseId) {
     }
     
 }
+
+export async function checkEnrollmentStatus(userId, courseId) {
+    
+    try{
+       const response = await api.get(`/course/isEnrolled/${courseId}?userId=${userId}`);
+       return response
+   }catch(error){
+       console.log(error.message)
+   }
+}
+
+export async function fetchEnrolledCourses(userId) {
+    
+     try{
+        const response = await api.get(`/course/enrolled-courses?userId=${userId}`);
+        return response
+    }catch(error){
+        console.log(error.message)
+    }
+}
+
+
 
 

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from "react-router-dom"
 import StreamLecture from "./StreamLecture"
-import { deleteLecture, enrollCourse, getCourseById } from "../../services/courseService"
+import { checkEnrollmentStatus, deleteLecture, enrollCourse, fetchEnrolledCourses, getCourseById } from "../../services/courseService"
 import "./styles/CourseDescription.css"
 import Reviews from "./Reviews"
 import { useReview } from "./CourseContext"
@@ -11,22 +11,30 @@ const CourseDescription = () => {
     const location = useLocation()
 
     const {courseId} = location.state || {}
+    const userId = localStorage.getItem('userId')
     const navigate = useNavigate()
     
     const [course, setCourse] = useState()
+    const [isEnrolled, setIsEnrolled] = useState()
 
     const getCourse = async (id) => {
         const response = await getCourseById(id)
         setCourse(response.data)
     }
 
+    const enrollmentStatus = async (userId, courseId) => {
+        const response = await checkEnrollmentStatus(userId, courseId)
+        console.log(response.data)
+        setIsEnrolled(response.data)
+    }
+
     useEffect(()=>{
+        enrollmentStatus(userId, courseId)
         getCourse(courseId)
-    },[courseId])
+    },[courseId, userId])
 
     // check if current user has already added a review
     const reviewCheck = useReview()
-    const userId = localStorage.getItem('userId')
     var isReviewAdded
     useEffect(() => {
         if (course) {
@@ -201,9 +209,11 @@ const CourseDescription = () => {
                                     <source src="" />
                                 )}
                             </video>
-                            <button className="btn btn-md btn-primary px-3 mt-1 w-100" onClick={() => handleCourseEnroll(course.courseId)} style={{ borderRadius: '0' }}>
-                                Enroll
-                            </button>
+                            {!isEnrolled && 
+                                <button className="btn btn-md btn-primary px-3 mt-1 w-100" onClick={() => handleCourseEnroll(course.courseId)} style={{ borderRadius: '0' }}>
+                                    Enroll
+                                </button>
+                            }
                         </div>
                     </div>
                     
@@ -238,7 +248,7 @@ const CourseDescription = () => {
                 }
 
                 {(localStorage.getItem('email') != course.author.email) && (localStorage.getItem('userId') != course.author.id) 
-                    && localStorage.getItem('isReviewAdded') === 'false'
+                    && isEnrolled && localStorage.getItem('isReviewAdded') === 'false' 
                 ? (<div>
                     <br />
                     <button className="btn btn-primary mx-2" 

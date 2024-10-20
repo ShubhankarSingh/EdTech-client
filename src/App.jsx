@@ -22,6 +22,7 @@ import AddReview from "./components/course/AddReview"
 import { ReviewProvider, useReview } from "./components/course/CourseContext"
 import EditCourse from "./components/course/EditCourse"
 import EditLectures from "./components/course/EditLectures"
+import EnrolledCourses from "./components/course/enrolledCourses/enrolledCourses"
 
 
 function App() {
@@ -37,6 +38,7 @@ function App() {
           <Route path="/register" element={ <Registration/> }></Route>
           <Route path="/login" element={ <Login/> }></Route>
           <Route path="/user/profile" element={ <Profile/> }></Route>
+          <Route path="/my-courses" element={ <EnrolledCourses/> }></Route>
           
           <Route path="/course/add-course" element={ <AddCourse/> }></Route>
           <Route path="/course/edit/:courseId/:title" element={ <EditCourse/> }></Route>

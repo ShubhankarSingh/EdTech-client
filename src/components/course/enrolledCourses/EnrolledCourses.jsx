@@ -30,7 +30,7 @@ const EnrolledCourses = () => {
 				<div className="row justify-content-center">
 					<div className="col-md-9">
 						<h4>My Learning</h4>
-						<div className="row mt-2">
+						<div className="row mt-3">
 							{enrolledCourses.map((data, index) => (
 								<div className="col-md-4 mb-3" key={data.course.courseId}>
 									<div className="card" style={{width: "250px", height: "100%", padding: 0, borderRadius: 0, border: 0}}>

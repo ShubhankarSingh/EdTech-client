@@ -11,7 +11,7 @@ const Logout = () => {
 
     const handleLogout = () =>{
         auth.logout()
-        navigate("/courses/music")
+        navigate("/")
     }
 
     const loadUserProfile = () =>{

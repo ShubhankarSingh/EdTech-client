@@ -28,7 +28,7 @@ const Login = () => {
             const {id, email, name, token} = loginSuccess.data
             // const email = loginSuccess.data.email
             auth.login(id, email, name, token)
-            navigate("/course/add-course")
+            navigate("/")
         }else{
             setErrorMessage("Invalid username or password. Please try again.")
         }

@@ -73,106 +73,108 @@ const Profile = () => {
         );
     }
 
-    return (
-		<div className="container my-5">
+	return (
+		<div className="container-fluid my-5">
 			<div className="main-body">
 				{user && ( // Conditionally render only when user data is available
 					<>
-						<div className="row gutters-sm">
-							<div className="col-md-1"></div>
-							<div className="col-md-4">
-								<div className="card profile" style={{ height: "100%"}}>
-									<div className="card-body" style={{ padding: 0}}>
-										<div className="d-flex flex-column align-items-center text-center">
-											<img className="profile-pic" src={`data:image/png;base64, ${user.profilePicture}`} 
-												style={{ height: "200px", width: "200px", borderRadius: "50%" }} alt="profile" 	
-											/>
-											<div className="mt-3">
-												<h4>{user.name}</h4>
-												<p className="text-muted font-size-sm">XYZ Street, Bangalore, Karnataka</p>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div className="col-md-6">
-								<div className="card" style={{ height: "100%"}}>
-									<div className="card-body" style={{ padding: 0}}>
-										<div className="row">
-											<div className="col-sm-3">
-												<h6 className="mb-0">Name</h6>
-											</div>
-											<div className="col-sm-9 text-secondary">
-												{user.name}
-											</div>
-										</div>
-										<br />
-										<div className="row">
-											<div className="col-sm-3">
-												<h6 className="mb-0">Email</h6>
-											</div>
-											<div className="col-sm-9 text-secondary">
-												{user.email}
-											</div>
-										</div>
-										<br />
-
-										{(authorId==null || authorId == userId) && (
-											<form onSubmit={handleSubmit}>
-												<label htmlFor="photo" className="col-sm-3 col-form-label">
-													Profile Picture
-												</label>
-												<div className="col-sm-6">
-													<input id="photo" name="photo" type="file" className="form-control" onChange={handleImageChange} />
+						<div className="row justify-content-center">
+							<div className="col-md-9 mx-auto">
+								<div className="row">
+									<div className="col-md-4">
+										<div className="card profile h-100" style={{ borderRadius: 0, border: 0 }}>
+											<div className="card-body p-0">
+												<div className="d-flex flex-column align-items-center text-center">
+													<img className="profile-pic" src={`data:image/png;base64, ${user.profilePicture}`} 
+														style={{ height: "200px", width: "200px", borderRadius: "50%" }} alt="profile" 	
+													/>
+													<div className="mt-3">
+														<h4>{user.name}</h4>
+														<p className="text-muted font-size-sm">XYZ Street, Bangalore, Karnataka</p>
+													</div>
 												</div>
-												{/* {imagePreview && <img src={imagePreview} alt="Thumbnail" style={{ maxWidth: "200px", maxHeight: "200px" }}></img>} */}
-												<button type="submit" className="btn btn-primary auth-button w-50 my-3"
-													style={{ borderRadius: '0', padding: '7px', margin: '0' }}>
-													Update
-												</button>
-											</form>
-										)}
+											</div>
+										</div>
+									</div>
+	
+									<div className="col-md-8">
+										<div className="card h-100" style={{  borderRadius: 0, border: 0 }}>
+											<div className="card-body p-0">
+												<div className="row">
+													<div className="col-sm-3">
+														<h6 className="mb-0">Name</h6>
+													</div>
+													<div className="col-sm-9 text-secondary">
+														{user.name}
+													</div>
+												</div>
+												<br />
+												<div className="row">
+													<div className="col-sm-3">
+														<h6 className="mb-0">Email</h6>
+													</div>
+													<div className="col-sm-9 text-secondary">
+														{user.email}
+													</div>
+												</div>
+												<br />
+	
+												{(authorId == null || authorId == userId) && (
+													<form onSubmit={handleSubmit}>
+														<label htmlFor="photo" className="col-sm-3 col-form-label">
+															Profile Picture
+														</label>
+														<div className="col-sm-6">
+															<input id="photo" name="photo" type="file" className="form-control" onChange={handleImageChange} />
+														</div>
+														<button type="submit" className="btn btn-primary auth-button w-50 my-3"
+															style={{ borderRadius: '0', padding: '7px', margin: '0' }}>
+															Update
+														</button>
+													</form>
+												)}
+											</div>
+										</div>
 									</div>
 								</div>
 							</div>
-							<div className="col-md-1"></div>
 						</div>
+	
+						<br />
+						<div className="row justify-content-center">
+							<div className="col-md-9 mx-auto">
+								<h4>My Courses</h4>
+								<div className="row mt-2">
+									{user && user.courses && user.courses.map((course, index) => (
+										<div className="col-md-4 mb-3" key={course.courseId}>
+											<div className="card h-100" style={{ padding: 0, borderRadius: 0, border: 0 }}>
+												<a className="d-flex flex-column align-items-center text-center" onClick={() => handleClick(course.title, course.courseId)}>
+													<img className="card-img-top" src={`data:image/png;base64, ${course.thumbnail}`} style={{ height: "200px", width: "100%", borderRadius: 0 }} alt="course thumbnail" />
+												</a>
+												<div className="card-body">
+													<div className="card-text">
+														<h6>{course.title}</h6>
+														<h6>{course.author}</h6>
+													</div>
+													{(localStorage.getItem('userId') == user.id) && (
+														<button className="btn btn-primary mt-1" style={{ borderRadius: '0', padding: '8px'}}
+															onClick={() => handleCourseEdit(course.title, course.courseId)}>
+															Edit Course
+														</button>
+													)}
+												</div>
+											</div>
+										</div>
+									))}
+								</div>
+							</div>
+						</div>
+	
 					</>
 				)}
-
-				<br />
-				<div className="row justify-content-center">
-					<div className="col-md-10">
-						<h4>My Courses</h4>
-						<div className="row mt-2">
-							{user && user.courses && user.courses.map((course, index) => (
-								<div className="col-md-4 mb-3" key={course.courseId}>
-									<div className="card" style={{width: "100%", height: "100%", padding: 0}}>
-										<a className="d-flex flex-column align-items-center text-center" onClick={() => handleClick(course.title, course.courseId)}>
-											<img className="card-img-top" src={`data:image/png;base64, ${course.thumbnail}`} style={{ height: "200px", width: "100%" }} alt="course thumbnail" />
-										</a>
-										<div className="card-body">
-											<div className="card-text">
-												<h6>{course.title}</h6>
-												<h6>{course.author}</h6>
-											</div>
-											{(localStorage.getItem('userId') == user.id) && (
-												<button className="btn btn-primary mt-1" style={{ borderRadius: '0', padding: '8px'}}
-													onClick={() => handleCourseEdit(course.title, course.courseId)}>
-													Edit Course
-												</button>
-											)}
-										</div>
-									</div>
-								</div>
-							))}
-						</div>
-					</div>
-				</div>
-
 			</div>
 		</div>
-	);	
-}
+	);
+}	
 
 export default Profile

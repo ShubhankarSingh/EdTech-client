@@ -29,18 +29,12 @@ const Home = () => {
         <h3>We have students from 100+ colleges and companies</h3>
     </div>
     <section id="our-students">
-        <div className="logo">
-            <img src={iitB} alt=""/>
-        </div>
-        <div className="logo">
-            <img src={iitD} alt=""/>
-        </div>
-        <div className="logo">
-            <img src={adobe} alt=""/>
-        </div>
-        <div className="logo">
-            <img src={apple} alt=""/>
-        </div>
+        
+        <img src={iitB} alt="" className="logo"/>
+        <img src={iitD} alt="" className="logo"/>
+        <img src={adobe} alt="" className="logo"/>
+        <img src={apple} alt="" className="logo"/>
+       
     </section>
 
     <hr/>
@@ -51,8 +45,8 @@ const Home = () => {
     <section id="top-courses">
         <div className="row">
         <div className="col-lg-4 mb-4 d-flex align-items-stretch">
-            <div className="card card-bg">
-                <img src={python} alt="" className="card-img-top course-image"/>
+            <div className="card card-bg" style={{ padding: 0, borderRadius: 0, border: 0 }}>
+                <img src={python} alt="" className="course-image"/>
                 <div className="card-body"> 
                     <div className="course-content">
                         <h5 className="card-title">Python For Begineers</h5>
@@ -63,7 +57,7 @@ const Home = () => {
         </div>
         <div className="col-lg-4 mb-4 d-flex align-items-stretch">
             <div className="card card-bg">
-                <img src={java} alt="" className="card-img-top course-image"/>
+                <img src={java} alt="" className="course-image"/>
                 <div className="card-body"> 
                     <div className="course-content">
                         <h5 className="card-title">Advanced Java</h5>
@@ -74,7 +68,7 @@ const Home = () => {
         </div>
         <div className="col-lg-4 mb-4 d-flex align-items-stretch">
             <div className="card card-bg">
-                <img src={photoshop} alt="" className="card-img-top course-image"/>
+                <img src={photoshop} alt="" className="course-image"/>
                 <div className="card-body"> 
                     <div className="course-content">
                         <h5 className="card-title">Adobe Photoshop 2023</h5>

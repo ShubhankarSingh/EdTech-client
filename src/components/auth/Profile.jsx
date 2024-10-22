@@ -76,14 +76,14 @@ const Profile = () => {
 	return (
 		<div className="container-fluid my-5">
 			<div className="main-body">
-				{user && ( // Conditionally render only when user data is available
+				{user && ( 
 					<>
 						<div className="row justify-content-center">
 							<div className="col-md-9 mx-auto">
 								<div className="row">
 									<div className="col-md-4">
 										<div className="card profile h-100" style={{ borderRadius: 0, border: 0 }}>
-											<div className="card-body p-0">
+											<div className="card-body p-3">
 												<div className="d-flex flex-column align-items-center text-center">
 													<img className="profile-pic" src={`data:image/png;base64, ${user.profilePicture}`} 
 														style={{ height: "200px", width: "200px", borderRadius: "50%" }} alt="profile" 	
@@ -99,7 +99,7 @@ const Profile = () => {
 	
 									<div className="col-md-8">
 										<div className="card h-100" style={{  borderRadius: 0, border: 0 }}>
-											<div className="card-body p-0">
+											<div className="card-body p-4">
 												<div className="row">
 													<div className="col-sm-3">
 														<h6 className="mb-0">Name</h6>
@@ -143,7 +143,7 @@ const Profile = () => {
 						<br />
 						<div className="row justify-content-center">
 							<div className="col-md-9 mx-auto">
-								<h4>My Courses</h4>
+								<h4 style={{color: "white"}}>My Courses</h4>
 								<div className="row mt-2">
 									{user && user.courses && user.courses.map((course, index) => (
 										<div className="col-md-4 mb-3" key={course.courseId}>

@@ -1,0 +1,26 @@
+.instructor { 
+    border: 1px solid white;
+    padding: 20px 0;
+    margin-bottom: 10px;
+}
+
+.instructor button { 
+    border-radius: 0;
+    padding: 15px;
+    margin: 0;
+}
+
+.instructor img{
+    height: 250px;
+}
+
+p{
+    color: rgb(218, 216, 216);
+    font-size: 18px;
+    margin: 0;
+}
+
+h2{
+    color: rgb(218, 216, 216);
+    margin-bottom: 40px;
+}

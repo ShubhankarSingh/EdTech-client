@@ -94,7 +94,6 @@ const CourseDescription = () => {
                 alert(response.data)
             }
             window.location.reload()
-            console.log(response.data)
         }
     }
 
@@ -106,7 +105,10 @@ const CourseDescription = () => {
         
         try{
             const response = await enrollCourse(userId, courseId)
-            console.log(response)
+            if(response.status === 200){
+                alert("Course Enrolled successfully")
+            }
+            window.location.reload()
         }catch(error){
             console.log(error)
         }
@@ -124,21 +126,18 @@ const CourseDescription = () => {
                         <div className="article-title">
                         
                             <h2>{ course.title }</h2>
-                            <br />
                             <h5>{course.shortDescription}</h5>
                             <br />
                             <p>Created By <a href="" onClick={() => showProfile(course.author.id)}>{course.author.name}</a></p>
                             <div className="row">
-                            <div className="col">
-                            <i className="bi bi-patch-exclamation-fill">  Created on {course.createdDate}&nbsp;&nbsp;</i> 
-                            <i className="bi bi-globe2"> {course.language}</i>
-                            </div>
+                                <div className="col">
+                                    <i className="bi bi-patch-exclamation-fill">  Created on {course.createdDate}&nbsp;&nbsp;</i> 
+                                    <i className="bi bi-globe2"> {course.language}</i>
+                                </div>
                             </div>
                         </div>
                        
-                        <div className="media-body">
-                           
-                        </div>
+                        
                         <div className="article-content">
                             <h4>What is this course about?</h4>
                             <p>{course.description}</p>
@@ -153,7 +152,7 @@ const CourseDescription = () => {
                     </article>
 
                     <h4>Course Content</h4>                   
-                    <div className="container">
+                    <div className="container lectures">
                         
                     {course.videos && course.videos.map((video) => (
                             
@@ -209,7 +208,7 @@ const CourseDescription = () => {
                                     <source src="" />
                                 )}
                             </video>
-                            {!isEnrolled && 
+                            {!isEnrolled && (localStorage.getItem('userId') != course.author.id) &&
                                 <button className="btn btn-md btn-primary px-3 mt-1 w-100" onClick={() => handleCourseEnroll(course.courseId)} style={{ borderRadius: '0' }}>
                                     Enroll
                                 </button>

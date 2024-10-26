@@ -6,7 +6,7 @@
     padding-bottom: 30px;
 }
 .gray-bg {
-    background-color: #f5f5f5;
+    background-color: #e0e0e0;
 }
 
 /* Blog 
@@ -98,6 +98,7 @@
   margin-bottom: 15px;
 }
 .blog-aside .widget-author p {
+  color: black;
   font-size: 16px;
   margin: 0;
 }
@@ -241,6 +242,13 @@
   font-weight: 600;
   margin-bottom: 15px;
 }
+
+.article .article-content p{
+  color: black;
+  font-size: 16px;
+}
+
+
 .article .article-content blockquote {
   max-width: 600px;
   padding: 15px 0 30px 0;
@@ -282,6 +290,10 @@ img {
 img {
     vertical-align: middle;
     border-style: none;
+}
+
+.lectures .btn{
+  color: black;
 }
 
 /* Contact Us

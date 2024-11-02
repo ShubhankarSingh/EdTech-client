@@ -204,7 +204,6 @@ export async function deleteReview(reviewId) {
 
 
 // APIs for course enrollment
-
 export async function enrollCourse(userId, courseId) {
     
     try{

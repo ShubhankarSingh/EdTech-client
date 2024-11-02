@@ -61,6 +61,7 @@ const CourseDescription = () => {
         );
     }
     
+
     // Replace %20 (space) with '-' (dash), also replaces multiple dashes with single dash
     const formmatedTitle = course.title.replace(/\s/g, '-').replace(/-+/g, '-').toLowerCase()
 
@@ -101,17 +102,28 @@ const CourseDescription = () => {
         navigate(`/course/${courseId}/${formmatedTitle}/add-review`, {state: {courseId: courseId, title: formmatedTitle, }})
     }
 
-    const handleCourseEnroll = async (courseId) =>{ 
+    // const paymentIntent = async (courseId, email, amount) =>{
+    //     const response = await createPaymentIntent(courseId, email, amount)
+    //     if(response.status === 200){
+    //         console.log("Client Secret: " + response.data)
+    //         return response.data
+    //     }
+    // }
+
+    const handleCourseEnroll = async (courseId, email, amount) =>{ 
+
+        navigate("/course/payment", {state: {courseId, email, amount}})
         
-        try{
-            const response = await enrollCourse(userId, courseId)
-            if(response.status === 200){
-                alert("Course Enrolled successfully")
-            }
-            window.location.reload()
-        }catch(error){
-            console.log(error)
-        }
+        // try{
+        //     const data = await paymentIntent(courseId, email, amount);
+        //     // const response = await enrollCourse(userId, courseId)
+        //         // if(response.status === 200){
+        //         //     alert("Course Enrolled successfully")
+        //         // }
+        //         // window.location.reload()
+        // }catch(error){
+        //     console.log(error)
+        // }
     }
  
     return (
@@ -209,8 +221,8 @@ const CourseDescription = () => {
                                 )}
                             </video>
                             {!isEnrolled && (localStorage.getItem('userId') != course.author.id) &&
-                                <button className="btn btn-md btn-primary px-3 mt-1 w-100" onClick={() => handleCourseEnroll(course.courseId)} style={{ borderRadius: '0' }}>
-                                    Enroll
+                                <button className="btn btn-md btn-primary px-3 mt-1 w-100" onClick={() => handleCourseEnroll(course.courseId, localStorage.getItem('email'), course.offerPrice)} style={{ borderRadius: '0' }}>
+                                    Buy Course
                                 </button>
                             }
                         </div>

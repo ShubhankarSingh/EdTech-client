@@ -13,6 +13,7 @@ const EnrolledCourses = () => {
     const fetchUserEnrolledCourses = async (userId) => {
         const response = await fetchEnrolledCourses(userId)
         setEnrolledCourses(response.data)
+		console.log(response.data)
 		setLoading(false)
     }
 
@@ -60,7 +61,7 @@ const EnrolledCourses = () => {
 											<div className="card-body">
 												<div className="card-text">
 													<p style={{fontSize: '16px', fontWeight: 'bold', color: "black"}}>{data.course.title}</p>
-													<p style={{fontSize: '14px', fontWeight: 'lighter', color: "black"}}>{data.course.author.name}</p>
+													{/* <p style={{fontSize: '14px', fontWeight: 'lighter', color: "black"}}>{data.course.author.name}</p> */}
 												</div>
 											</div>
 										</div>

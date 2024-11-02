@@ -24,6 +24,7 @@ import EditCourse from "./components/course/EditCourse"
 import EditLectures from "./components/course/EditLectures"
 import EnrolledCourses from "./components/course/enrolledCourses/enrolledCourses"
 import Home from "./components/home/home"
+import CoursePayment from "./components/payment/CoursePayment"
 
 
 function App() {
@@ -50,6 +51,7 @@ function App() {
           <Route path="/course/:title/lesson/:videoId" element={ <StreamLecture/> }></Route>
           <Route path="/course/:courseId/:title/add-lecture" element={ <AddVideos/> }></Route>
           <Route path="/course/:courseId/update-lecture/:videoId" element={ <EditLectures/> }></Route>
+          <Route path="/course/payment" element={ <CoursePayment/> }></Route>
 
           <Route path="/course/:courseId/:title/add-review" element={ <AddReview/> }></Route>
           <Route path="/instructor/courses/" element={<InstructorInterface/>} ></Route>

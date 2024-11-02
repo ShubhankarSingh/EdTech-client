@@ -30,7 +30,7 @@ export async function getUserProfile(userId) {
 
     try{
         const response = await api.get(`/users/user/${userId}`);
-        //console.log("User Data: " + JSON.stringify(response.data))
+        console.log("User Data: " + JSON.stringify(response.data))
         return response
     }catch(error){
         console.log(error.message)

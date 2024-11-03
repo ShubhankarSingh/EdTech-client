@@ -13,7 +13,6 @@ const EnrolledCourses = () => {
     const fetchUserEnrolledCourses = async (userId) => {
         const response = await fetchEnrolledCourses(userId)
         setEnrolledCourses(response.data)
-		console.log(response.data)
 		setLoading(false)
     }
 

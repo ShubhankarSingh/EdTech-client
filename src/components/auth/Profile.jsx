@@ -30,7 +30,6 @@ const Profile = () => {
 		},[userId])
 	}
 
-	
 	const handleImageChange = (e) =>{
 		const selectedImage = e.target.files[0]
 		setProfilePicture({...profilePicture, photo:selectedImage})
@@ -65,7 +64,6 @@ const Profile = () => {
             <div className="container d-flex justify-content-center align-items-start" style={{ minHeight: "100vh", paddingTop: "100px" }}>
                 <div className="text-center">
                     <div className="spinner-border text-success" role="status" style={{ width: "3rem", height: "3rem" }}>
-                        
                     </div>
                     <p className="mt-3 text-center">Loading...</p>
                 </div>

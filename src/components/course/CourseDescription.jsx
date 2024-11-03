@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from "react-router-dom"
 import StreamLecture from "./StreamLecture"
-import { checkEnrollmentStatus, deleteLecture, enrollCourse, fetchEnrolledCourses, getCourseById } from "../../services/courseService"
+import { checkEnrollmentStatus, deleteLecture, enrollCourse, getCourseById } from "../../services/courseService"
 import "./styles/CourseDescription.css"
 import Reviews from "./Reviews"
 import { useReview } from "./CourseContext"
@@ -61,7 +61,6 @@ const CourseDescription = () => {
         );
     }
     
-
     // Replace %20 (space) with '-' (dash), also replaces multiple dashes with single dash
     const formmatedTitle = course.title.replace(/\s/g, '-').replace(/-+/g, '-').toLowerCase()
 
@@ -102,28 +101,16 @@ const CourseDescription = () => {
         navigate(`/course/${courseId}/${formmatedTitle}/add-review`, {state: {courseId: courseId, title: formmatedTitle, }})
     }
 
-    // const paymentIntent = async (courseId, email, amount) =>{
-    //     const response = await createPaymentIntent(courseId, email, amount)
-    //     if(response.status === 200){
-    //         console.log("Client Secret: " + response.data)
-    //         return response.data
-    //     }
-    // }
-
     const handleCourseEnroll = async (courseId, email, amount) =>{ 
-
         navigate("/course/payment", {state: {courseId, email, amount}})
-        
-        // try{
-        //     const data = await paymentIntent(courseId, email, amount);
-        //     // const response = await enrollCourse(userId, courseId)
-        //         // if(response.status === 200){
-        //         //     alert("Course Enrolled successfully")
-        //         // }
-        //         // window.location.reload()
-        // }catch(error){
-        //     console.log(error)
-        // }
+    }
+
+    const handleFreeCourseEnroll = async (courseId) => {
+        const response = await enrollCourse(userId, courseId);
+        if (response.status === 200) {
+            alert("Course Enrollment Successfull!");
+            navigate('/my-courses');
+        }
     }
  
     return (
@@ -220,9 +207,14 @@ const CourseDescription = () => {
                                     <source src="" />
                                 )}
                             </video>
-                            {!isEnrolled && (localStorage.getItem('userId') != course.author.id) &&
+                            {!isEnrolled && (localStorage.getItem('userId') != course.author.id) && (course.offerPrice != 0 && course.originalPrice != 0) &&
                                 <button className="btn btn-md btn-primary px-3 mt-1 w-100" onClick={() => handleCourseEnroll(course.courseId, localStorage.getItem('email'), course.offerPrice)} style={{ borderRadius: '0' }}>
                                     Buy Course
+                                </button>
+                            }
+                            {!isEnrolled && (localStorage.getItem('userId') != course.author.id) && (course.offerPrice == 0 && course.originalPrice == 0) &&
+                                <button className="btn btn-md btn-primary px-3 mt-1 w-100" onClick={() => handleFreeCourseEnroll(course.courseId)} style={{ borderRadius: '0' }}>
+                                    Enroll
                                 </button>
                             }
                         </div>

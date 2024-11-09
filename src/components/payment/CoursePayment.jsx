@@ -32,10 +32,10 @@ const CoursePaymentForm = ({ clientSecret, courseId, email, userId }) => {
                 billing_details: { email },
             },
         });
-
         if (error) {
             console.error("Payment failed:", error.message);
             setLoading(false);
+            navigate("/course/payment/failure")
         } else if (paymentIntent.status === 'succeeded') {
             console.log("Payment successful!");
             

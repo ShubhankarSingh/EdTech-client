@@ -25,6 +25,7 @@ import EditLectures from "./components/course/EditLectures"
 import EnrolledCourses from "./components/course/enrolledCourses/enrolledCourses"
 import Home from "./components/home/home"
 import CoursePayment from "./components/payment/CoursePayment"
+import PaymentFailure from "./components/payment/PaymentFailure"
 
 
 function App() {
@@ -52,6 +53,7 @@ function App() {
           <Route path="/course/:courseId/:title/add-lecture" element={ <AddVideos/> }></Route>
           <Route path="/course/:courseId/update-lecture/:videoId" element={ <EditLectures/> }></Route>
           <Route path="/course/payment" element={ <CoursePayment/> }></Route>
+          <Route path="/course/payment/failure" element={ <PaymentFailure/> }></Route>
 
           <Route path="/course/:courseId/:title/add-review" element={ <AddReview/> }></Route>
           <Route path="/instructor/courses/" element={<InstructorInterface/>} ></Route>

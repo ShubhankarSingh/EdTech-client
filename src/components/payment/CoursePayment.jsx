@@ -41,8 +41,7 @@ const CoursePaymentForm = ({ clientSecret, courseId, email, userId }) => {
             
             const response = await enrollCourse(userId, courseId);
             if (response.status === 200) {
-                alert("Payment successful!");
-                navigate('/my-courses'); // Navigate to a success page or courses page
+                navigate("/course/payment/success"); // Navigate to a success page or courses page
             }
         }
 

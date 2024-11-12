@@ -75,10 +75,10 @@ export async function updateCourse(course, courseId) {
 }
 
 
-export async function getCourseById(id) {
+export async function getCourseById(courseId) {
     
     try{
-        const response = await api.get(`/courses/course/${id}`)
+        const response = await api.get(`/courses/course/${courseId}`)
         return response
     }catch(error){
         console.log(`Error fetching course: ${error.message}`)
@@ -92,8 +92,19 @@ export async function getAllCoursesByCategory(category) {
         const response = await api.get(`/courses/${category}`)
         return response
     }catch(error){
-        console.log(`Error fetching course: ${error.message}`)
+        console.log(`Error fetching courses: ${error.message}`)
     }
+}
+
+export async function getRecentlyViewedCoursesFromRedis(userId) {
+
+    try{
+        const response = await api.get("/courses/viewed-courses")
+        return response
+    }catch(error){
+        console.log(`Error fetching courses: ${error.message}`)
+    }
+    
 }
 
 export async function addLecture(video, courseId){

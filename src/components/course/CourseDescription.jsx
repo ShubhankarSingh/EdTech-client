@@ -17,8 +17,8 @@ const CourseDescription = () => {
     const [course, setCourse] = useState()
     const [isEnrolled, setIsEnrolled] = useState()
 
-    const getCourse = async (id) => {
-        const response = await getCourseById(id)
+    const getCourse = async (courseId) => {
+        const response = await getCourseById(courseId)
         setCourse(response.data)
     }
 

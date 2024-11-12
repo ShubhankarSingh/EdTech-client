@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import iitB from "./static/images/iit-b.png"
 import iitD from "./static/images/iit-d.png"
 import bgImg from "./static/images/bg-img.png"
@@ -10,8 +10,29 @@ import python from "./static/images/python.jpg"
 import photoshop from "./static/images/photoshop.jpg"
 import java from "./static/images/java.jpg"
 import "./static/styles/Home.css"
+import { getRecentlyViewedCoursesFromRedis } from "../../services/courseService"
 
 const Home = () => {
+
+   const [viewedCourses, setViewedCourses] = useState([])
+
+   const userId = localStorage.getItem('userId')
+   
+   const fetchViewedCourses = async (userId) =>{
+        try{
+            const response = await getRecentlyViewedCoursesFromRedis(userId);
+            console.log("Recently viewed courses: ")
+            console.log(response)
+            setViewedCourses(response.data)
+        }catch(error){
+            console.log("Error fetching courses")
+        }
+    }
+
+
+    useEffect(()=>{
+        fetchViewedCourses(userId);
+    },[userId])
 
   return (
     <div>

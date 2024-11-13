@@ -63,6 +63,24 @@ const Home = () => {
     <div className="heading">
         <h3>Top-selling Courses</h3>
     </div>
+
+    {viewedCourses.length > 0 && viewedCourses.map((course, index)=>(
+        <section id="top-courses">
+        <div className="row">
+            <div className="col-lg-4 mb-4 d-flex align-items-stretch">
+                <div className="card card-bg" style={{ padding: 0, borderRadius: 0, border: 0 }}>
+                    <img src={`data:image/png;base64, ${course.thumbnail}`} alt="" className="course-image"/>
+                    <div className="card-body"> 
+                        <div className="course-content">
+                            <h5 className="card-title">{course.title}</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </section>
+    ))}
+
     <section id="top-courses">
         <div className="row">
         <div className="col-lg-4 mb-4 d-flex align-items-stretch">

@@ -78,7 +78,14 @@ export async function updateCourse(course, courseId) {
 export async function getCourseById(courseId) {
     
     try{
-        const response = await api.get(`/courses/course/${courseId}`)
+
+        const token = localStorage.getItem('token')
+        console.log("TOken: " + token)
+        const response = await api.get(`/courses/course/${courseId}`,{
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
         return response
     }catch(error){
         console.log(`Error fetching course: ${error.message}`)

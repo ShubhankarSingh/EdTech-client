@@ -78,7 +78,6 @@ export async function updateCourse(course, courseId) {
 export async function getCourseById(courseId) {
     
     try{
-
         const token = localStorage.getItem('token')
         console.log("TOken: " + token)
         const response = await api.get(`/courses/course/${courseId}`,{
@@ -104,14 +103,14 @@ export async function getAllCoursesByCategory(category) {
 }
 
 export async function getRecentlyViewedCoursesFromRedis(userId) {
-
-    try{
-        const response = await api.get("/courses/viewed-courses")
-        return response
-    }catch(error){
-        console.log(`Error fetching courses: ${error.message}`)
+    try {
+        const response = await api.get(`/courses/viewed-courses`, {
+            params: { userId }, // Pass the userId as a query parameter
+        });
+        return response;
+    } catch (error) {
+        console.log(`Error fetching courses: ${error.message}`);
     }
-    
 }
 
 export async function addLecture(video, courseId){

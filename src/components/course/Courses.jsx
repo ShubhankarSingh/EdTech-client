@@ -2,27 +2,50 @@ import React, { useEffect, useState } from 'react'
 import { getAllCoursesByCategory } from "../../services/courseService"
 import { useParams } from "react-router-dom"
 import CourseDetail from "./CourseDetail"
+import {gql, useQuery} from "@apollo/client"
+
+// Graphql qeury
+const GET_COURSES_BY_CATEGORY = gql`
+    query GetCoursesByCategory($category: String!){
+        getAllCoursesByCategory(category: $category){
+          id
+          title
+          author
+          shortDescription
+          originalPrice
+          offerPrice
+        }
+    }`;
 
 const Courses = () => {
 
-  const [courses, setCourses] = useState([])
+  // const [courses, setCourses] = useState([])
 
   const {category} = useParams()
 
-  const fetchCourses = async (category) =>{
-    try{
-      const response = await getAllCoursesByCategory(category)
-      setCourses(response.data)
-    }catch(error){
-      console.log("Error fetching courses")
-    }
-  }
+  console.log("Category:" + category)
 
-  useEffect(()=>{
+  const {loading, error, data} = useQuery(GET_COURSES_BY_CATEGORY, {
+    variables: {category},
+  });
 
-   fetchCourses(category)
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error fetching courses: {error.message}</p>;
 
-  },[category])
+  // const fetchCourses = async (category) =>{
+  //   try{
+  //     const response = await getAllCoursesByCategory(category)
+  //     setCourses(response.data)
+  //   }catch(error){
+  //     console.log("Error fetching courses")
+  //   }
+  // }
+
+  // useEffect(()=>{
+
+  //  fetchCourses(category)
+
+  // },[category])
 
   return (
 

@@ -79,6 +79,11 @@ box-shadow: 0 0 10px 0 rgba(100, 100, 100, 0.26);
     width: 100%;
 }
 
+.viewed-course-image {
+    height: 240px;
+    width: 80%;
+}
+
 .course-content h5{
     font-family: 'Roboto', sans-serif;
     font-size: 23px;

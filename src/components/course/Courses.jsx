@@ -8,12 +8,19 @@ import {gql, useQuery} from "@apollo/client"
 const GET_COURSES_BY_CATEGORY = gql`
     query GetCoursesByCategory($category: String!){
         getAllCoursesByCategory(category: $category){
-          id
-          title
-          author
-          shortDescription
-          originalPrice
-          offerPrice
+        id
+        title
+        shortDescription
+        originalPrice
+        offerPrice
+        category {
+            id
+        }
+        author {                # Subselection for the 'author' field
+            id
+            name
+            email
+        }
         }
     }`;
 
